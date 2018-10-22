@@ -1,0 +1,77 @@
+INSTRUCTIONS POUR UNE PIZZERIA
+
+2 Tables 
+
+Base 1. Pizzas (id)--> 
+- ID
+- Name
+- Price
+- images
+- size_Id (liens vers la table Tailels)
+
+
+Base 2. Sizes (id)--> 
+- ID
+- name
+- price
+
+
+
+Base 3. Users (id)--> 
+- ID
+- Nom
+- Prénom
+
+
+
+Base 4. Adress (id)--> 
+- ID
+- Nom de l'adresse
+- Adresse en tant que telle
+- CP
+- Ville
+- Telephone
+- User_ID (lein vers table utilisateur)
+
+
+-------------------------------BONUS---------------------------------------------
+
+Base 5. Orders (id)--> 
+- ID
+- ordered_at
+- référence de la Commande
+- User_ID
+
+
+
+Base 6. Order_details (id)--> 
+- ID
+- Nom de la pizza en dur (ne varira pas dans le temps)
+- Prix de la Pizza en dur (ne varira pas dans le temps)
+- Taille en dur (ne varira pas dans le temps)
+- quantity
+- Order_Id
+
+
+
+
+
+NOM DES Pizzas --+ images + price------------------------------
+
+- Reine (img/pizzas/reine.png) 8
+- Texane  (img/pizzas/texan.png) 10 
+- 4-fromages  (img/pizzas/4-fromages.png) 9
+- Végétarienne  (img/pizzas/vegetarienne.png) 11
+- Savoyarde  (img/pizzas/savoyarde png) 13 
+- Bolognaise  (img/pizzas/bolognaise .png) 10
+- Cannibale (img/pizzas/cannibale.png) 10
+
+
+
+
+
+
+
+
+
+

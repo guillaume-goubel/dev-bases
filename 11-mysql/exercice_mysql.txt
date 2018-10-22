@@ -1,0 +1,31 @@
+
+SELECTIONNER TOUTES LES PIZZAS---------------------
+SELECT name FROM `pizza`
+
+PRIX INF a 10 €-------------------------
+SELECT name FROM `pizza` WHERE price < 10
+
+PIZZAS SANS IMAGES---------------------
+SELECT name FROM `pizza` WHERE image = 'null'
+
+TRIER + cher à - cher------------------
+SELECT * FROM `pizza` ORDER BY price ASC
+
+RECUP 3 PIZZAS ALEATOIRE--------------
+SELECT * FROM `pizza` ORDER BY RAND()
+
+COMPTER LES PIZZAS 
+SELECT COUNT(id) FROM pizza-----------
+
+Le prix le plus cher dans la table pizza-------
+SELECT MAX(price) as max_price FROM pizza
+
+
+Calculer la moyenne des prix pizzas-----------
+SELECT AVG(price) FROM pizza
+
+
+
+
+
+
