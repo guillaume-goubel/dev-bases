@@ -6,7 +6,7 @@ styles/ -- css/-- {la future feuilles ccs.min} + sass/--{styles.scss}
 
 
 Connection des feuilles de styles :
-λ sass --watch styles/sass/styles.scss:styles/css/styles.min.css --style compressed
+λ sass --watch assets/styles/sass/styles.scss:assets/styles/css/styles.min.css --style compressed
 
 
 Faire le link du bon css dans le fichier html :

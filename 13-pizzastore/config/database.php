@@ -6,12 +6,12 @@
 
 $options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE , PDO::FETCH_ASSOC,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
 ];
 
 try{
     
-    $db = new PDO ('mysql:host=localhost;dbname=pizzastore;charset=UTF8', 'root' , '', $options); // 1er temps CONNECTION
+    $db = new PDO ('mysql:host=localhost;dbname=pizzastore;charset=UTF8', 'root' , '', $options);
 /*     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE , PDO::FETCH_ASSOC); */
 
@@ -23,8 +23,8 @@ try{
 
 } catch(PDOException $e) {
     echo "Database connection failed: " . $e->getMessage();
-    echo '<img src="assets/data/pictures/giphy.gif">';
-    die();
+    echo '<img src="data/pictures/giphy.gif">';
+    die('Aie Aie Aie');
 }
 
 

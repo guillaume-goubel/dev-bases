@@ -1,6 +1,7 @@
 <?php
-require_once __DIR__.'/../config/config.php';
-require_once __DIR__.'/../config/database.php';
+require_once __DIR__.'/../config/config.php'; 
+/* require_once __DIR__.'/../config/database.php';  */
+
 ?>
 
 <!doctype html>
@@ -11,11 +12,14 @@ require_once __DIR__.'/../config/database.php';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="assets/data/pictures/favicon.ico">
+    <link rel="icon" href="data/pictures/favicon.ico">
+    <link rel="stylesheet" href="assets/styles/styles.css">
 
     <title>
 
         <?php 
+
+        
 
         if (empty($currentPageTitle)) { // si on est sur la page d'accueil
         echo $siteName. '- notre pizzeria en ligne';
@@ -42,7 +46,7 @@ require_once __DIR__.'/../config/database.php';
 <body>
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" href="#"><?php echo ($siteName)?> </a>
+        <a class="navbar-brand" href="#"><?= $siteName ?> </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -50,10 +54,10 @@ require_once __DIR__.'/../config/database.php';
 
         <div class="collapse navbar-collapse" id="navbar-pizzastore">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item <?php echo($currentPageUrl  === 'index')? 'active' : ''; ?>"  >
+                <li class="nav-item <?= ($currentPageUrl  === 'index')? 'active' : ''; ?>"  >
                     <a class="nav-link" href="index.php">Accueil</a>
                 </li>
-                <li class="nav-item  <?php echo($currentPageUrl  === 'pizza_list')? 'active' : ''; ?>" >
+                <li class="nav-item  <?= ($currentPageUrl  === 'pizza_list') ? 'active' : ''; ?>" >
                     <a class="nav-link" href="pizza_list.php">Liste des pizzas</a>
                 </li>
 
@@ -66,10 +70,7 @@ require_once __DIR__.'/../config/database.php';
     </nav>
 
 
-    <main>
-
-    </main>
-
+    <img src="" alt="">
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

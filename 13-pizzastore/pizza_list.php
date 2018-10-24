@@ -10,7 +10,7 @@ $currentPageTitle = 'Nos pizzas';
 ////////////////
 //Include
 ///////////////
-require_once __DIR__.'/assets/partials/header.php';
+require_once __DIR__.'/partials/header.php';
 
 
 ////////////////
