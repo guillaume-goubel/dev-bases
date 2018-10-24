@@ -10,7 +10,7 @@ Pour recreer la structure de la base à tout moment
 PHP
  On va creer quelques fichiers / dossiers :
 - config/databases.php --> Connecion à la base de donnés
-- fichier config
+- config/config.php --> Stocke toutes les variavles globales
 - partials/header.php --> le header
 - partials/footer.php --> le footer
 - index.php --> page accueil

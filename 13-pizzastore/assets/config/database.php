@@ -22,7 +22,9 @@ try{
 } */
 
 } catch(PDOException $e) {
-    die("Database connection failed: " . $e->getMessage());
+    echo "Database connection failed: " . $e->getMessage();
+    echo '<img src="assets/data/pictures/giphy.gif">';
+    die();
 }
 
-?>
+

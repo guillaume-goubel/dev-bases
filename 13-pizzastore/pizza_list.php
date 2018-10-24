@@ -1,18 +1,36 @@
 <?php
+
+////////////////
+//Variables
+///////////////
+
+$currentPageTitle = 'Nos pizzas';
+
+
+////////////////
+//Include
+///////////////
 require_once __DIR__.'/assets/partials/header.php';
-require_once __DIR__.'/assets/partials/footer.php';
-require_once __DIR__.'/assets/config/database.php';
+
+
+////////////////
+//Developpement
+///////////////
+$query = $db -> query('SELECT * FROM pizza');
+$pizzas = $query->fetchAll();
 ?>
 
+<main> 
+
+<h1>PIZZAS LISTES</h1>
+
+<?php
 
 
-
-<main role="main" class="container">PIZZAS LISTES
-
-<form action="POST">
-
-
-</form>
+foreach ($pizzas as $key => $pizza) {
+    echo "<h2>"  .$pizza['name']  ."</h2>" . "<br>";
+} 
+?>
 
 </main>
 

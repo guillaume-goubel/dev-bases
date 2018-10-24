@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__.'/../config/config.php';
+require_once __DIR__.'/../config/database.php';
 ?>
 
 <!doctype html>
@@ -14,11 +15,10 @@ require_once __DIR__.'/../config/config.php';
 
     <title>
 
-
         <?php 
 
-        if ($currentPageTitle === null) { // si on est sur la page d'accueil
-        echo $siteName. '-notre pizzeria en ligne';
+        if (empty($currentPageTitle)) { // si on est sur la page d'accueil
+        echo $siteName. '- notre pizzeria en ligne';
         } else { // si on est sur la page d'accueil
         echo $currentPageTitle. " - " .$siteName;
         }
