@@ -1,0 +1,25 @@
+﻿Organiser les dossiers:
+
+PROJET/--
+data/ -- medias/-- {pictures , sounds , videos}
+styles/ -- css/-- {la future feuilles ccs.min} + sass/--{styles.scss}
+
+
+Connection des feuilles de styles :
+λ sass --watch styles/sass/styles.scss:styles/css/styles.min.css --style compressed
+
+
+Faire le link du bon css dans le fichier html :
+<link rel="stylesheet" href="styles/css/styles.min.css">
+
+Mettre une image en background
+background-image: url('../../data/medias/pictures/concert1.jpg');
+
+connection chez moi SASS
+λ cd c:/DEVELOPPEUR WEB/WEBFORCE3/HTML_CSS/cool-skool
+
+connection WEBFORCE3
+cd c:/GG/HTML_CSS/"projet"
+
+
+https://insiders.liveshare.vsengsaas.visualstudio.com/join?50F80F0F9A8A3BDB4C65D446F9243BDFC230
