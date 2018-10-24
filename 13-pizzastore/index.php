@@ -1,15 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="assets/styles/css/styles.min.css">
-    <title>Document</title>
-</head>
-<body>
+<?php
+require_once __DIR__.'/assets/partials/header.php';
+require_once __DIR__.'/assets/partials/footer.php';
+?>
 
-<p>TEST</p>
+<main role="main" class="container">
 
-</body>
-</html>
+   <h1>ACCUEIL</h1> 
+
+   <h2>1. Inclure des pizzas</h2>
+
+   <form action="#" method="POST">
+
+    <label for="">Choix de la pizza
+    <input type="text"></label>
+
+   </form>
+
+
+
+
+</main>
