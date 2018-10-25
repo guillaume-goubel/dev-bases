@@ -1,10 +1,10 @@
 <?php
-
 ////////////////
 //Variables
 ///////////////
 
 $currentPageTitle = 'Nos pizzas';
+$price="13.00";
 
 ////////////////
 //Include
@@ -22,59 +22,36 @@ $pizzas = $query->fetchAll();
 
     <h1 id="title">NOS PIZZAS</h1>
 
-    <div class="container2">
 
-        <div class="italie">
-            <div class="italie-flag">
-                <img src="data/pictures/drapeaux" alt="" id="italie">
+    <div class="row">
+        <img class="img-fluid" src="data/pictures/drapeaux" alt="" id="italie">
+    </div>
+
+    <div class="row">
+
+        <?php foreach ($pizzas as $key => $pizza) { ?>
+
+        <div class="card" style="width: 18rem;">
+
+            <div class="image-container">
+                <img class="card-img-top" src="data/pictures/<?=$pizza['image'];?>" alt="Card image cap">
+                <div class="price"><?= formatPrice($pizza['price']) ?></div>
             </div>
 
-            <div class="italie-carte"></div>
+            <div class="card-body">
+                <h5 class="card-title">
+                    <?=$pizza['name'];?>
+                </h5>
+                <p class="card-text">Icone</p>
+                <a href="pizza_detail.php?id=<?php echo $pizza['id'] ?>" class="btn btn-success btn-sm">Commande</a>
+            </div>
 
         </div>
 
-        <div class="row">
-
-
-            <?php foreach ($pizzas as $key => $pizza) { ?>
-
-            <div id="card">
-
-                <div class="card">
-
-                    <div class="container-image">
-                        <img id="pizza-pictures" class="card-img-top" src="data/pictures/<?php echo $pizza['image'];?>">
-                    </div>
-
-                    <div class="price">
-
-                        <?php echo $pizza['price'] . '€';  ?>
-
-                    </div>
-
-
-                    <div class="card-body" id="card-command">
-                        <h2 class="card-title">
-                            <?php echo $pizza['name']; ?>
-                        </h2>
-
-
-                        <!-- Quand on clique sur le lien on va sur vers pizza detail.php
-                            L'URL doit ressembler à pizza_detail.php?id=id de la pizza -->
-
-                        <a href="pizza_detail.php?id=<?php echo $pizza['id'] ?>" class="btn btn-info">Commandez</a>
-
-
-                    </div>
-
-                </div>
-            </div>
-
-            <?php }  ?>
-
-        </div>
+        <?php }  ?>
 
     </div>
+
 
 </main>
 

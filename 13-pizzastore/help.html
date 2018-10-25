@@ -1,0 +1,15 @@
+
+                    <div class="container-image">
+                        <img id="pizza-pictures" class="card-img-top" src="data/pictures/<?php echo $pizza['image'];?>">
+                        <div class="price"><?php echo formatPrice($pizza['price']);?></div>
+                    </div>
+
+                    <div class="card-body" id="card-command">
+                        <h3 class="card-title">
+                            <?php echo $pizza['name']; ?>
+                        </h3>
+
+                        <!-- Quand on clique sur le lien on va sur vers pizza detail.php
+                            L'URL doit ressembler à pizza_detail.php?id=id de la pizza -->
+
+                        <a href="pizza_detail.php?id=<?php echo $pizza['id'] ?>" class="btn btn-info">Commandez</a>
