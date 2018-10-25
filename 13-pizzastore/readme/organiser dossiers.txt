@@ -23,3 +23,7 @@ cd c:/GG/HTML_CSS/"projet"
 
 
 https://insiders.liveshare.vsengsaas.visualstudio.com/join?50F80F0F9A8A3BDB4C65D446F9243BDFC230
+
+
+
+<link rel="stylesheet" href="assets/styles/css/styles.min.css">

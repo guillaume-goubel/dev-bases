@@ -33,7 +33,7 @@ echo    $pizza['id'] .$pizza['name'] .'<br/>';
  
 //Récupérer l'id dynamique dans l'URL (ex , si je saisis pizza.php?id=7)
 echo ("<h2> 2. Récupèrer une pizza spécifique dans url </h2>");
-var_dump($_GET['id']);
+/* var_dump($_GET['id']); */
 
 if(!empty($_GET['id'])){
     $id = $_GET['id'];
@@ -74,7 +74,7 @@ echo $pizzas['id'] .$pizzas['name'] .'<br/>';
 //Requete préparée)
 echo ("<h2> 3. Requete préparée </h2>");
 
-$query = $bd -> prepare('SELECT * FROM pizzza WHERE :id');
+$query = $db -> prepare('SELECT * FROM pizzza WHERE :id');
 
 $query -> bindValue(':id', 5, PDO::PARAM_INT);
 $query -> execute();
