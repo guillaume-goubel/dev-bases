@@ -17,14 +17,19 @@ nav {
     align-items: center;
 }
 
-img#italie {
-    margin-bottom: 10%;
-}
-
 img.card-img-top {
     height: 160px;
-
+    filter: grayscale(30%); 
 }
+
+img.card-img-top:hover {
+    transform: scale(0.9);
+    filter: grayscale(5%); 
+}
+
+
+
+
 
 .image-container {
 

@@ -1,6 +1,4 @@
 <?php
-
-
 ////////////////
 ///Variables
 ////////////////
@@ -16,7 +14,8 @@ require_once __DIR__.'/partials/header.php';
 //Développement
 ///////////////
 
-$errors_array = array(); 
+$errors_array = array();
+$success_array = array();  
 
 $admin_pizza_name = null;
 $admin_pizza_price = null;
@@ -70,10 +69,9 @@ if(!empty($_POST)) {
                     <select class="form-control" id="exampleFormControlSelect2" name="admin_pizza_categorie">
                         <option selected></option>
                         <option <?php echo ($admin_pizza_categorie==='Aucune' ) ? "selected" : "" ;?> > aucune </option>
-                        <option <?php echo ($admin_pizza_categorie==='végétarienne' ) ? "selected" : "" ;?>>
-                            végétarienne</option>
+                        <option <?php echo ($admin_pizza_categorie==='végétarienne' ) ? "selected" : "" ;?>> végétarienne</option>        
                         <option <?php echo ($admin_pizza_categorie==='charcuterie' ) ? "selected" : "" ;?>> charcuterie</option>
-                        <option <?php echo ($admin_pizza_categorie==='epicée' ) ? "selected" : "" ;?> > epicée</option>
+                        <option <?php echo ($admin_pizza_categorie==='epicée' ) ? "selected" : "" ;?>> epicée</option>
                     </select>
                 </div>
 
@@ -123,26 +121,34 @@ if (!empty($_POST)) { // Si le formulaire est soumis
     }
 
     // upload de l'image
+        
+        if (!empty($file)){
+            $file = $admin_pizza_image['tmp_name'];
+        }else{
+            $file =__DIR__ ."/data/pictures/";
+        } 
+        
         $file = $admin_pizza_image['tmp_name']; // emplacement du fichie temporaire
         $fileName = $admin_pizza_image['name']; // variable pour la base de données
 
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mimeType = finfo_file($finfo , $file);
+
         $allowedExtentions = ['image/gif', 'image/png', 'image/jpeg', 'image/bmp', 'image/jpg' ];
         // Si extension n'est pas autoirisée , il ya une erreur
 
         if(!in_array($mimeType , $allowedExtentions)){
-            array_push($errors_array, 'ce type de fichier est pas autorié');
+            array_push($errors_array, 'Ce type de fichier image n\'est pas autorisé');
         }
 
-        if ($admin_pizza_image['size'] / 1024 > 30){
+        if ($admin_pizza_image['size'] / 1024 > 300){
             array_push($errors_array, "l'image est trop lourde");
-        }
+        } 
 
         // upload de l'image
         // le 30 est défini en kilos 
         if(empty($errors_array )){
-            move_uploaded_file($file, __DIR__ ."/data/pictures/" .$fileName);
+            move_uploaded_file($file, __DIR__ ."/data/pictures/" .$admin_pizza_image['name']);
         }
 
     
@@ -158,7 +164,7 @@ if (!empty($_POST)) { // Si le formulaire est soumis
         $query -> execute();
 
         /* $insert_id = $db->lastInsertId(); */
-        echo "Votre article est bien enregistré";      
+        array_push($success_array,"Votre produit à l'identifiant".$db->lastInsertId()."a été rajouté avec succès");      
     }
 }
 
@@ -174,6 +180,18 @@ echo $value ."<br>";
 ?>
 
 </div>
+
+
+<div id="activate-<?php echo (!empty($success_array)) ? " on" : '' ; ?>" class="alert alert-success" role="alert">
+
+<?php
+foreach ($success_array as $key => $value) {
+echo $value ."<br>";
+}
+?>
+
+</div>
+
 
 
 

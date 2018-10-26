@@ -4,7 +4,7 @@
 ///////////////
 
 $currentPageTitle = 'Nos pizzas';
-$price="13.00";
+/* $price="13.00"; */
 
 ////////////////
 //Include

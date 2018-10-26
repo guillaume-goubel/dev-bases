@@ -40,7 +40,6 @@ if($pizza === false){
 header('location : pizza_list_php ') */
 
 
-
 /* $currentPageTitle = 'Nos pizzas'; */
 require_once __DIR__.'/partials/header.php';
 
