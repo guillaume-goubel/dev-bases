@@ -60,6 +60,10 @@ require_once __DIR__.'/../config/functions.php';
                     <a class="nav-link" href="pizza_list.php">Liste des pizzas</a>
                 </li>
 
+                <li class="nav-item  <?= ($currentPageUrl  === 'pizza_update') ? 'active' : ''; ?>" >
+                    <a class="nav-link" href="pizza_update.php">Ajouter des produits</a>
+                </li>
+
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">

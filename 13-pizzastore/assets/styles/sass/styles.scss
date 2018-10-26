@@ -73,8 +73,6 @@ img.card-img-top {
     max-height: 50%;
 }
 
-
-
 .row {
     display: flex;
 }
@@ -97,4 +95,27 @@ img.card-img-top {
 #detail-pizza-image{
     max-width: 200px;
     max-height: 200px;
+}
+
+
+///////////////////////////////////////////////////////////////////////////
+
+#activate-{
+    display: none;
+}
+
+
+#activate-on{
+    display:block;
+}
+
+////////PIZZA UPDATE//////////////////////////////////////////////////////////////////////////
+
+h1{
+    padding-bottom: 5%;
+}
+
+label{
+    font-size: 1.5rem;
+    font-weight: 600;
 }

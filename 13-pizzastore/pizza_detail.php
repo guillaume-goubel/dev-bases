@@ -25,16 +25,14 @@ if($pizza === false){
     http_response_code(404);
     require_once __DIR__.'/partials/header.php';
     echo ('<h1> 404 </h1>');?>
-    
-    <script>
-    setTimeout(function() 
-    {
+
+<script>
+    setTimeout(function () {
         window.location = 'pizza_list.php';
     }, 5000);
+</script>
 
-    </script>
-    
-    <?php
+<?php
     die();
     require_once __DIR__.'/partials/footer.php';
 } 
@@ -52,24 +50,34 @@ require_once __DIR__.'/partials/header.php';
 <main role="main" class="container-fluid" id="pizza-detail-container">
 
     <div class="row">
-        <div class="col-md-12">
-            <div>
 
-                <img id="detail-pizza-image"class="img-fluid" src="data/pictures/<?php echo $pizza['image']?>" alt="">
 
-            </div>
+        <div class="card" style="width: 18rem;">
 
-            <div>
-                <h1>
+            <img class="card-img-top" src="data/pictures/<?php echo $pizza['image']?>" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">
                     <?php echo $pizza['name']?>
-                </h1>
+                </h5>
+                <p class="card-text">
+                    <?php echo $pizza['descriptions']?>
+                </p>
+                
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Détails de la commande
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Tailles</a>
+                        <a class="dropdown-item" href="#">Quantités</a>
+                    </div>
+                </div>
+
             </div>
+
         </div>
 
-        <div>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse qui voluptatum amet quos accusantium quia, architecto delectus, ex sed enim placeat facilis fugiat eveniet ea fuga quod inventore labore doloribus.
-        </div>
-        
     </div>
 
 </main>

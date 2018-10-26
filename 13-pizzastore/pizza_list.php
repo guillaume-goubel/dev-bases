@@ -16,6 +16,7 @@ require_once __DIR__.'/partials/header.php';
 ///////////////
 $query = $db->query('SELECT * FROM pizza');
 $pizzas = $query->fetchAll();
+
 ?>
 
 <main class="container-fluid">
@@ -39,16 +40,14 @@ $pizzas = $query->fetchAll();
             </div>
 
             <div class="card-body">
-                <h5 class="card-title">
-                    <?=$pizza['name'];?>
-                </h5>
-                <p class="card-text">Icone</p>
+                <h5 class="card-title"><?=$pizza['name'];?></h5>      
+                <p class="card-text"><?= $pizza['categories'];?></p>        
                 <a href="pizza_detail.php?id=<?php echo $pizza['id'] ?>" class="btn btn-success btn-sm">Commande</a>
             </div>
 
         </div>
 
-        <?php }  ?>
+        <?php }; ?>
 
     </div>
 
@@ -57,5 +56,8 @@ $pizzas = $query->fetchAll();
 
 
 <?php
+
+
+
 require_once __DIR__.'/partials/footer.php';
 ?>
