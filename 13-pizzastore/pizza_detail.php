@@ -2,16 +2,17 @@
 
 // inclure la bd avant le haeder car besoin avant
 
-/* $id = isset($_GET['id']) ? $_GET['id'] : 0; */
+$id = !empty($_GET['id']) ? $_GET['id'] : 0; 
 
-if(!empty($_GET['id'])){
+/* if(!empty($_GET['id'])){
     $id = $_GET['id'];
 } else{
     $id = 0;
-}
+} */
 
 
 $currentPageTitle = 'Commander nos pizzas';
+
 require_once __DIR__.'/config/database.php';
 
 //récupérer les infos de la pizza
@@ -39,17 +40,13 @@ if($pizza === false){
 /* //on peut aussi le rediriger vers la page des la liste
 header('location : pizza_list_php ') */
 
-
-/* $currentPageTitle = 'Nos pizzas'; */
 require_once __DIR__.'/partials/header.php';
-
 
 ?>
 
 <main role="main" class="container-fluid" id="pizza-detail-container">
 
     <div class="row">
-
 
         <div class="card" style="width: 18rem;">
 

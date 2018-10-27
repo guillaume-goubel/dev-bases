@@ -103,6 +103,10 @@ img.card-img-top:hover {
 }
 
 
+.container{
+    max-width: 800px;
+}
+
 ///////////////////////////////////////////////////////////////////////////
 
 #activate-{
@@ -117,10 +121,24 @@ img.card-img-top:hover {
 ////////PIZZA UPDATE//////////////////////////////////////////////////////////////////////////
 
 h1{
-    padding-bottom: 5%;
+    padding-bottom: 1%;
+    font-weight: 600;
+    text-decoration-color: red;
 }
+
+hr {
+	height: 0;
+	padding: 0;
+	border: 5px;
+}
+
 
 label{
     font-size: 1.5rem;
+    font-weight: 600;
+}
+
+
+.alert-danger,{
     font-weight: 600;
 }

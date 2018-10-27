@@ -23,6 +23,8 @@ $admin_pizza_image = null;
 $admin_pizza_categorie = null;
 $admin_pizza_description = null;
 
+$admin_pizza_image['type'] = null;
+
 
 if(!empty($_POST)) { 
     $admin_pizza_name = $_POST['admin_pizza_name'];
@@ -58,8 +60,7 @@ if(!empty($_POST)) {
 
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Image</label><br>
-                    <input type="file" class="" id="exampleFormControlInput1" placeholder="Image de la pizza"
-                        name="admin_pizza_image">
+                    <input type="file" class="" id="exampleFormControlInput1" name="admin_pizza_image">
                 </div>
                 <div class="form-group">
 
@@ -69,7 +70,8 @@ if(!empty($_POST)) {
                     <select class="form-control" id="exampleFormControlSelect2" name="admin_pizza_categorie">
                         <option selected></option>
                         <option <?php echo ($admin_pizza_categorie==='Aucune' ) ? "selected" : "" ;?> > aucune </option>
-                        <option <?php echo ($admin_pizza_categorie==='végétarienne' ) ? "selected" : "" ;?>> végétarienne</option>        
+                        <option <?php echo ($admin_pizza_categorie==='végétarienne' ) ? "selected" : "" ;?>>
+                            végétarienne</option>
                         <option <?php echo ($admin_pizza_categorie==='charcuterie' ) ? "selected" : "" ;?>> charcuterie</option>
                         <option <?php echo ($admin_pizza_categorie==='epicée' ) ? "selected" : "" ;?>> epicée</option>
                     </select>
@@ -90,19 +92,25 @@ if(!empty($_POST)) {
 
 <?php
 
-if (!empty($_POST)) { // Si le formulaire est soumis
+if (!empty($_POST)) { // Si le formulaire est soumis dans son intégralité
     $isValid = true;
 
     if (empty($admin_pizza_name)) { 
         $isValid = false;
         array_push($errors_array, "Il manque le nom de la pizza");
-        /* echo 'Il manque le nom de la pizza'."<br>";  */
+
     }
 
     if (empty($admin_pizza_price)) { 
         $isValid = false;
         array_push($errors_array, "Il manque le prix de la pizza");
-        /* echo 'Il manque le prix de la pizza'."<br>"; */
+
+    }
+
+    if (is_numeric($admin_pizza_price) === false) { 
+        $isValid = false;
+        array_push($errors_array, "Il faut indiquer un prix par un chiffre");
+
     }
 
     if ($admin_pizza_image['error'] === 4 ) { //si erreur 4 ; pas de fichier envoyé
@@ -121,59 +129,55 @@ if (!empty($_POST)) { // Si le formulaire est soumis
     }
 
     // upload de l'image
+     
+        $file = $admin_pizza_image['tmp_name'];   // emplacement du fichie temporaire
         
-        if (!empty($file)){
-            $file = $admin_pizza_image['tmp_name'];
-        }else{
-            $file =__DIR__ ."/data/pictures/";
-        } 
-        
-        $file = $admin_pizza_image['tmp_name']; // emplacement du fichie temporaire
-        $fileName = $admin_pizza_image['name']; // variable pour la base de données
-
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mimeType = finfo_file($finfo , $file);
+        /* $finfo = finfo_open(FILEINFO_MIME_TYPE); */
+        /* $mimeType = finfo_file($finfo , $file); */
 
         $allowedExtentions = ['image/gif', 'image/png', 'image/jpeg', 'image/bmp', 'image/jpg' ];
-        // Si extension n'est pas autoirisée , il ya une erreur
-
-        if(!in_array($mimeType , $allowedExtentions)){
-            array_push($errors_array, 'Ce type de fichier image n\'est pas autorisé');
+      
+        // Si extension n'est pas autorisée , il ya une erreur
+        if(!in_array($admin_pizza_image['type'], $allowedExtentions) && $admin_pizza_image['error'] !== 4 ){
+            $isValid = false;
+            array_push($errors_array,'Ce type de fichier image n\'est pas autorisé');
         }
 
         if ($admin_pizza_image['size'] / 1024 > 300){
+            $isValid = false;
             array_push($errors_array, "l'image est trop lourde");
         } 
 
-        // upload de l'image
-        // le 30 est défini en kilos 
-        if(empty($errors_array )){
+        
+
+        if($isValid){
+
+            // upload de l'image
             move_uploaded_file($file, __DIR__ ."/data/pictures/" .$admin_pizza_image['name']);
+
+            // renseignement de la base de données
+            $query = $db->prepare('INSERT INTO `pizza` (`name`, `price`, `image`, `categories`, `descriptions`) VALUES (:admin_pizza_name, :admin_pizza_price, :admin_pizza_image, :admin_pizza_categorie, :admin_pizza_description )');
+
+            $query->bindValue(':admin_pizza_name', $admin_pizza_name, PDO::PARAM_STR);
+            $query->bindValue(':admin_pizza_price', $admin_pizza_price, PDO::PARAM_INT);
+            $query->bindValue(':admin_pizza_image', $admin_pizza_image['name'], PDO::PARAM_STR);
+            $query->bindValue(':admin_pizza_categorie', $admin_pizza_categorie, PDO::PARAM_STR);
+            $query->bindValue(':admin_pizza_description', $admin_pizza_description, PDO::PARAM_STR);
+            $query ->execute();
+        
+            // message de confirmation
+            array_push($success_array,"Votre produit à l'identifiant".$db->lastInsertId()."a été rajouté avec succès");  
         }
 
-    
-
-    if ($isValid && empty($errors_array)) {
-        $query = $db->prepare('INSERT INTO `pizza` (`name`, `price`, `image`, `categories`, `descriptions`) VALUES (:admin_pizza_name, :admin_pizza_price, :admin_pizza_image, :admin_pizza_categorie, :admin_pizza_description )');
-
-        $query->bindValue(':admin_pizza_name', $admin_pizza_name, PDO::PARAM_STR);
-        $query->bindValue(':admin_pizza_price', $admin_pizza_price, PDO::PARAM_INT);
-        $query->bindValue(':admin_pizza_image', $fileName, PDO::PARAM_STR);
-        $query->bindValue(':admin_pizza_categorie', $admin_pizza_categorie, PDO::PARAM_STR);
-        $query->bindValue(':admin_pizza_description', $admin_pizza_description, PDO::PARAM_STR);
-        $query -> execute();
-
-        /* $insert_id = $db->lastInsertId(); */
-        array_push($success_array,"Votre produit à l'identifiant".$db->lastInsertId()."a été rajouté avec succès");      
-    }
 }
 
 ?>
 
+<div class="container">
 
 <div id="activate-<?php echo (!empty($errors_array)) ? " on" : '' ; ?>" class="alert alert-danger" role="alert">
 
-    <?php
+    <?php // Affichage des erreurs
 foreach ($errors_array as $key => $value) {
 echo $value ."<br>";
 }
@@ -181,10 +185,14 @@ echo $value ."<br>";
 
 </div>
 
+</div>
+
+
+<div class="container">
 
 <div id="activate-<?php echo (!empty($success_array)) ? " on" : '' ; ?>" class="alert alert-success" role="alert">
 
-<?php
+    <?php // Affichage du succès
 foreach ($success_array as $key => $value) {
 echo $value ."<br>";
 }
@@ -192,7 +200,7 @@ echo $value ."<br>";
 
 </div>
 
-
+</div>
 
 
 <?php

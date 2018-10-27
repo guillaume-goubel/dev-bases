@@ -41,13 +41,13 @@ $pizzas = $query->fetchAll();
 
             <div class="card-body">
                 <h5 class="card-title"><?=$pizza['name'];?></h5>      
-                <p class="card-text"><?= $pizza['categories'];?></p>        
+                <p><img src="data/pictures/<?=$pizza['categories'];?>"></p>      
                 <a href="pizza_detail.php?id=<?php echo $pizza['id'] ?>" class="btn btn-success btn-sm">Commande</a>
             </div>
 
         </div>
 
-        <?php }; ?>
+        <?php };  ?>
 
     </div>
 
