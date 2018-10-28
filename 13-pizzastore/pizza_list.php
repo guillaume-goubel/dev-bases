@@ -17,12 +17,12 @@ require_once __DIR__.'/partials/header.php';
 $query = $db->query('SELECT * FROM pizza');
 $pizzas = $query->fetchAll();
 
+
 ?>
 
-<main class="container-fluid">
+<main class="container" id="list">
 
-    <h1 id="title">NOS PIZZAS</h1>
-
+    <h1 id="title">La carte</h1>
 
     <div class="row">
         <img class="img-fluid" src="data/pictures/drapeaux" alt="" id="italie">

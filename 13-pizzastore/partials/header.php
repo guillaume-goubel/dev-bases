@@ -13,7 +13,11 @@ require_once __DIR__.'/../config/functions.php';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="data/pictures/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="data/favicon/favicon-16x16.png">
+    <link rel="manifest" href="data/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="data/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
 
 
     <title>
@@ -22,8 +26,8 @@ require_once __DIR__.'/../config/functions.php';
 
         if (empty($currentPageTitle)) { // si on est sur la page d'accueil
         echo $siteName. '- notre pizzeria en ligne';
-        } else { // si on est sur la page d'accueil
-        echo $currentPageTitle. " - " .$siteName;
+        } else { // si on est pas sur la page d'accueil
+        echo $siteName . " - " .$currentPageTitle ;
         }
 
         ?>
@@ -36,7 +40,10 @@ require_once __DIR__.'/../config/functions.php';
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
+        
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.min.css">
+
+    
 
     <link rel="stylesheet" href="assets/styles/css/styles.min.css">
 
@@ -44,7 +51,7 @@ require_once __DIR__.'/../config/functions.php';
 
 <body>
 
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="header-nav">
         <a class="navbar-brand" href="#"><?= $siteName ?> </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault">
             <span class="navbar-toggler-icon"></span>
@@ -67,5 +74,8 @@ require_once __DIR__.'/../config/functions.php';
             </ul>
         </div>
     </nav>
+
+
+
 
 
