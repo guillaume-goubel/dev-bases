@@ -114,8 +114,6 @@ if(!empty($_POST)){ // si au moins un des POST a été envoyé donc on rentre da
       
         // Si extension n'est pas autorisée , il ya une erreur
 
-        var_dump($admin_pizza_image['error']);
-
          if(!in_array($admin_pizza_image['type'], $allowedExtentions) && $admin_pizza_image['error'] !== 4  ){
             $isValid = false;
             $errors_array['pizzaImageType'] = "Ce type de fichier image n\'est pas autorisé";   
@@ -129,10 +127,11 @@ if(!empty($_POST)){ // si au moins un des POST a été envoyé donc on rentre da
         if (empty($errors_array)){
             $isValid = true;
         }
- 
     }   
-        if($isValid === true){
 
+    var_dump($isValid);
+
+        if($isValid === true){
 
 
             // upload de l'image
@@ -148,7 +147,7 @@ if(!empty($_POST)){ // si au moins un des POST a été envoyé donc on rentre da
 
             //Equivalence français Anglais dans la base de données
             if ($admin_pizza_categorie === "Aucune"){
-                $admin_pizza_categorie = "nonne";
+                $admin_pizza_categorie = "none";
             }
 
             if ($admin_pizza_categorie === "Végétarienne"){
@@ -206,17 +205,13 @@ if(!empty($_POST)){ // si au moins un des POST a été envoyé donc on rentre da
         
         ;?>"
             
-            
-            
-    
+        
             placeholder="Nom de la pizza" name="admin_pizza_name"
                 value="<?php echo $admin_pizza_name; ?>">
             <div class="feedback-<?= ($admin_pizza_name_validation === true) ? " valid" : "invalid" ;?>">
                 <?php echo (isset($errors_array['pizzaName'])) ? $errors_array['pizzaName'] : "" ;?>
             </div>
         </div>
-
-
 
             <div class="form-group">
 
@@ -252,10 +247,10 @@ if(!empty($_POST)){ // si au moins un des POST a été envoyé donc on rentre da
             </div>
 
 
-            <div class="form-group"> 
+            <div class="form-group" id="upload"> 
 
                 <label for="exampleFormControlInput1">Image</label><br>
-                <input type="file" class="" 
+                <input type="file" class="form-control" 
                 
                 id="<?php
         
@@ -284,8 +279,6 @@ if(!empty($_POST)){ // si au moins un des POST a été envoyé donc on rentre da
                 <?php echo (isset($errors_array['pizzaImageType'])) ? $errors_array['pizzaImageType'] : "" ;?>
                 <?php echo (isset($errors_array['pizzaImagePoid'])) ? $errors_array['pizzaImagePoid'] : "" ;?>
             </div>
-
-
 
             <div class="form-group"> 
         
