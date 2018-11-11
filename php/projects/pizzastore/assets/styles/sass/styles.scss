@@ -1,0 +1,272 @@
+////////////////MIXIN//////////////
+@mixin flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+//////BODY////////////////
+body {
+    background-image: url(../../../data/pictures/fond.jpg);
+
+}
+
+//////HEADER
+/////NAVIGATION////////////////////////
+nav#header-nav {
+    margin-bottom: 3%;
+}
+
+
+
+////////ACCUEIL//////////////////////////////////
+
+main#accueil.container {
+    max-width: 1500px;
+    @include flex;
+    flex-direction: column;
+
+    text-align: justify;
+}
+
+div#logo.row {
+    @include flex;
+    width: 100%;
+}
+
+div#logo.col-4 {
+    background-image: url(../../../data/pictures/pizza_napoli_logo.png);
+    background-repeat: no-repeat;
+    height: 23rem;
+}
+
+
+div#accueil.col-6 {
+    background-image: url(../../../data/pictures/pizzeria.jpg);
+    background-size: cover;
+    height: 25rem;
+
+}
+
+div#accueil.row {
+    margin-top: 4%;
+    margin-bottom: 4%;
+    border-radius: 5px;
+}
+
+
+div#accueil2.col-6 {
+    background-image: url(../../../data/pictures/feu.jpg);
+    background-size: cover;
+    height: 25rem;
+}
+
+#accueil-side1 {
+    @include flex;
+    flex-direction: column;
+
+    background-color: rgb(200, 134, 27);
+
+    color: white;
+
+}
+
+#accueil-side2 {
+    @include flex;
+    flex-direction: column;
+
+    background-color: rgb(60, 18, 1);
+
+    color: white;
+}
+
+
+div#infos.row {
+
+    @include flex;
+
+    border: 5px solid white;
+
+    background-color: whitesmoke;
+
+    border-radius: 15px;
+
+    margin-top: 4%;
+
+    width: 90%;
+
+    div#infos.col-12 {
+        @include flex;
+
+        div#infos.col-12 div {
+            @include flex;
+        }
+    }
+}
+
+
+div#access.row {
+
+    @include flex;
+
+    margin-top: 4%;
+    margin-bottom: 4%;
+
+}
+
+
+//////PIZZA LIST//////////////////////////////////////////
+
+main#list.container {
+    max-width: 1500px;
+
+    h1 {
+        margin-top: 4%;
+    }
+}
+
+img.card-img-top {
+    height: 160px;
+    filter: grayscale(30%);
+}
+
+img.card-img-top:hover {
+    transform: scale(0.9);
+    filter: grayscale(5%);
+}
+
+
+.image-container {
+
+    max-height: 50%;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+
+
+    .price {
+        width: 60px;
+        height: 60px;
+        background-color: rgb(201, 20, 119);
+
+        position: absolute;
+        right: 0;
+        bottom: 0;
+
+        border-radius: 50%;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        color: white;
+
+        font-weight: 600;
+    }
+}
+
+.card {
+    margin: 5px;
+}
+
+.card-body {
+    max-height: 50%;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.row {
+    display: flex;
+}
+
+
+.card-price-cents {
+    font-size: 0.8rem;
+}
+
+#pizza-detail-container {
+
+    margin-top: 10%;
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#detail-pizza-image {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+
+.container {
+    max-width: 800px;
+}
+
+
+////////PIZZA UPDATE//////////////////////////////////////////////////////////////////////////
+
+main#update.container {
+
+    max-width: 1000px;
+
+    h1 {
+        margin-top: 4%;
+        padding-bottom: 1%;
+        font-weight: 600;
+    }
+
+    label {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+}
+
+div#errors.container,
+div#success.container,
+    {
+    font-weight: 600;
+
+    #activate- {
+        display: none;
+    }
+
+    #activate-on {
+        display: block;
+    }
+}
+
+
+.feedback-invalid {
+    color: red;
+    font-weight: 600;
+}
+
+
+#valid.form-control {
+    border: 1px solid rgb(40, 167, 69);
+    box-shadow: inset 3px 0px 3px -4px rgba(40, 167, 69, 1);
+}
+
+#invalid.form-control {
+    border: 1px solid red;
+    box-shadow: inset 3px 0px 3px -4px rgba(220, 53, 69, 1);
+}
+
+////////SUCCESS///////////////////////
+
+div#activate-on{
+    margin-top: 3%;
+    text-align: center;
+}

@@ -1,0 +1,27 @@
+.container-fluid{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    height: 800px ;
+}
+
+div{
+    margin-top:50px;
+
+    width: 500px;
+
+}
+
+#jour{
+    background-color: azure;
+}
+
+#date-x-jours{
+    background-color:greenyellow;
+}
+
+#date-evenement{
+    background-color:rgb(106, 117, 212);
+}

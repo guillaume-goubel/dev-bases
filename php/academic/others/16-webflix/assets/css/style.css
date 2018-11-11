@@ -1,0 +1,14 @@
+.navbar-brand {
+    color: #000000;
+}
+
+.navbar-brand:hover {
+    color: #000000;
+}
+
+.background-movie {
+	height: 150px;
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
