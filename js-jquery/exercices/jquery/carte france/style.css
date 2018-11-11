@@ -1,0 +1,39 @@
+[id*='region_'] {
+    cursor: pointer;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: black;
+}
+
+
+.mapAndInfos {
+    width: 1100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.map {
+    width: 60%;
+    height: 500px;
+}
+
+.regionPresentation {
+    width: 40%;
+    height: 500px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 30px;
+    color:white;
+
+
+}

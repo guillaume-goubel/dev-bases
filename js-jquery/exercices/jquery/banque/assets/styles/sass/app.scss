@@ -1,0 +1,194 @@
+$primary-color: rgb(36, 92, 177);
+
+
+
+body {
+
+    margin-left: 5%;
+    margin-right: 5%;
+
+    font-size: 16px;
+}
+
+
+.main-container {
+
+    height: 100vh;
+
+    header {
+        width: 100%;
+        height: 20%;
+
+        display: flex;
+        justify-content: space-around;
+
+        border-bottom: 1px solid $primary-color;
+
+        .title {
+            width: 50%;
+            height: 100%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            flex-direction: column;
+
+            p {
+                color: $primary-color;
+                font-size: 3rem;
+                font-weight: 600;
+            }
+        }
+
+        .logo {
+            width: 50%;
+            height: 100%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            border-right: 1px solid $primary-color;
+        }
+    }
+}
+
+main {
+    width: 100%;
+    height: 70%;
+
+    #bonjour {
+        height: 10%;
+
+        border: 1px solid $primary-color;
+        margin-top: 2%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    .compte-container {
+        border: 1px solid $primary-color;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 80%;
+
+
+        #compte-presentation {
+            width: 40%;
+            height: 40%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            flex-direction: column;
+
+            border-right: 1px solid $primary-color;
+
+
+
+            #date {
+                height: 20%;
+            }
+
+            #infos-client {
+                height: 80%;
+            }
+
+            #sex,
+            #fName,
+            #sold {
+                display: none;
+            }
+        }
+
+        .operations-container {
+            width: 60%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            display: none;
+
+            #compte {
+                height: 80%;
+                width: 60%;
+                margin-top: 1%;
+                margin-bottom: 1%;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                flex-direction: column;
+
+                #operations {
+                    padding-top: 2%;
+                    padding-bottom: 2%;
+                }
+
+                #operations-historic {
+                    height: 80%;
+                    width: 100%;
+
+
+                    display: flex;
+                    flex-direction: column;
+
+                    #operations_results {
+                        height: 80%;
+                        width: 100%;
+                        display: flex;
+                        background-color: antiquewhite;
+                        border-radius: 10px;
+
+                        #solde-presentation {
+                            height: 15%;
+                        }
+
+                        #solde-presentation.off{
+                            display: none;
+                        } 
+
+
+                        #credit-operations {
+                            width: 50%;
+
+                        }
+
+                        #debit-operations {
+                            width: 50%;
+
+                        }
+                    }
+
+                    .titles {
+                        display: flex;
+                        justify-content: space-around;
+                        align-items: center;
+
+                        p {
+                            margin: 0;
+                            padding: 0;
+                            font-weight: 600;
+                        }
+                    }
+
+                    #solde-presentation.off {
+                        display: none;
+                    }
+                }
+
+                #actualy-compte.off {
+                    display: none;
+                }
+            }
+
+        }
+    }
+}

@@ -1,0 +1,59 @@
+body {
+
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+
+    padding: 0;
+    margin: 0;
+
+    font-size: 16px;
+    font-family: 'Open Sans Condensed', sans-serif;
+
+    color : white;
+
+    box-sizing: border-box;
+}
+
+#off-canvas {
+    background-color: black;
+    height: 100vh;
+    width: 230px;
+    position: absolute;
+    left: -230px;
+    top:0;
+
+    transition: all 0.3s; /*All left*/
+}
+
+
+body.open #off-canvas{
+    left:0;
+    z-index: 2;
+    padding-left:50px;
+}
+
+
+#off-canvas a{
+    text-decoration: none;
+    color: white;
+}
+
+
+/*AVEC OVERLAY*/
+
+.overlay{   
+    display: none;
+    position : absolute ;
+    
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color:rgb(0,0,0,0.5)
+}
+
+body.open .overlay{
+    display: block;
+    z-index: 1;
+}

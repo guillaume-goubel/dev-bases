@@ -1,0 +1,135 @@
+body {
+    box-sizing: border-box;
+}
+
+#test1 {
+    background-color: aqua;
+    z-index: 4;
+
+    width: 15%;
+    height: 25%;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+
+
+}
+
+#test1-on {
+    position: absolute;
+    left: 85.2%;
+    top: 0;
+
+    background-color: green;
+    z-index: 4;
+
+    width: 15%;
+    height: 25%;
+
+    transition: all 23s;
+}
+
+#test2 {
+    background-color: red;
+    z-index: 3;
+
+    width: 15%;
+    height: 25%;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+
+
+
+#test2-on {
+    position: absolute;
+    left: 85.2%;
+    top: 75%;
+
+    background-color: royalblue;
+
+    z-index: 3;
+
+    width: 15%;
+    height: 25%;
+
+    transition: all 11s;
+}
+
+
+
+#test3 {
+    background-color: green;
+    z-index: 2;
+
+    width: 15%;
+    height: 25%;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+
+
+#test3-on {
+    background-color: fuchsia;
+    z-index: 2;
+
+    width: 15%;
+    height: 25%;
+
+    position: absolute;
+    left: 0;
+    top: 75%;
+
+    transition: all 7s;
+}
+
+
+
+
+
+
+
+#test4 {
+    background-color: yellow;
+    z-index: 1;
+
+    width: 15%;
+    height: 25%;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+}
+
+
+
+#test4-on {
+    background-color: firebrick;
+    z-index: 1;
+
+    width: 15%;
+    height: 25%;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    transition: all 10s;
+}
+
+
+
+#buttons {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
