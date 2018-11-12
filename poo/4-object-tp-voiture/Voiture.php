@@ -25,11 +25,13 @@ class Voiture {
     */
     public $_couleur;
 
+
     /**
     * @param bool
     * @defautl false 
     */
     public $_marche = false;
+
 
     /**
     * @param int 
@@ -76,6 +78,27 @@ class Voiture {
         $this->_conducteur = $conducteur;
     }
 
+    
+    //GETTER
+    public function get_marque()
+    {
+        return $this->_marque;
+    }
+
+    public function get_modele()
+    {
+        return $this->_modele;
+    }
+
+    public function get_couleur()
+    {
+        return $this->_couleur;
+    }
+
+    public function get_conducteur()
+    {
+        return $this->_conducteur;
+    }
 
 
     //ACTION
@@ -86,66 +109,82 @@ class Voiture {
     Tourner (la vitesse ne doit pas être > à 30 km/h)
     S'arrêter (le véhicule doit être en marche et à une vitesse de 0km/h) */
 
-    public function demarrer()
+    public function demarrer(string $contact)
     {
-        if($this->_marche === false){
-            $this->_marche = true;
-            return "la voiture a demarrer";
+    if($this->_marche === false && $contact === "on"){
+        $this->_marche = true;
+        return "Le moteur "  .$this->_marque ." a demarré";
     }
    
-    else
+    else if ($this->_marche === true && $contact === "on")
     {
-        return "la voiture est à l'arret";
+        return "Le moteur a déjà demarré";
+    }
+
+    else if($this->_marche === true && $contact === "off") {
+        $this->_marche = false;
+        return "Le moteur de la voiture ". $this->_marque  ." est maintenant arreté ";
     }
 
     } 
 
-
-
-
     public function avancer(int $vitesse_indique)
-    {
+   {   
         if($this->_marche === true){
-            $this->_vitesse = $vitesse_indique;
+            return $this->_vitesse += $vitesse_indique;
         }
     }
 
-
-
-
     public function freiner(int $vitesse_indique)
     {
+
+        if(!is_numeric($vitesse_indique)) {
+            trigger_error('La vitesse indiquée doit être un chiffre', E_USER_WARNING);
+        }
+
+        if($this->_marche === false){
+            return "La voiture doit être demarée pour freiner!";
+        }
         if($this->_marche === true && $this->_vitesse >0){
             $this->_vitesse -= $vitesse_indique;
+            return "La voiture " .$this->get_marque() ." freine pour aller à " .$this->_vitesse ." km/h";
         }
+
+        if($this->_marche === true && $this->_vitesse = 0){
+            return "La voiture doit rouler pour freiner !";
+        }
+
+
     }
 
     
     public function tourner(string $direction)
     {
         
-        if($this->_vitesse < 30){
+        if($this->_vitesse <= 30){
 
             switch($direction)
         
             {
                 case "gauche":
-                return "la voiture tourne à gauche";
+                return "Roulant en dessous de 30km/h , le véhicule " .$this->get_marque() ." tourne à gauche";
                 break;
     
                 case "droite":
-                return "la voiture tourne à droite";
+                return "Roulant en dessous de 30km/h , le véhicule " .$this->get_marque() ." tourne à droite";
                 break;
             }
         }
 
         else{
-            return "la voiture va trop vite!";
+            return "La voiture " .$this->get_marque() ." va trop vite pour tourner!";
         }
-        
-
-        
+     
     }
 
+    public function arret()
+    {
+        return $this->_vitesse -= $this->_vitesse ;
+    }
 
 }

@@ -16,10 +16,6 @@ class Personnage3 {
     * * CONSTRUCTOR 
     ************************/
 
-    public __construct(){
-        $this->
-    }
-
 
     /***********************
     * * METHODS
