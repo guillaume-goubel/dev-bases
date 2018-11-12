@@ -1,0 +1,29 @@
+.container {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.container > div {
+    display: block;
+    clear: both;
+    padding: 1rem;
+}
+
+.container input {
+    float: right;
+    width: 300px;
+}
+
+table {
+    width: 100%;
+    border-spacing: 0px;
+    /* border-collapse: separate; */
+}
+table tr:first-child {
+    margin-bottom: -2px;
+}
+table th, table td {
+    border: 2px solid green;
+    margin: 0;
+    padding: .3rem;
+}

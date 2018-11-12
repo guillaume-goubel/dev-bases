@@ -1,0 +1,17 @@
+.container {
+    width: 500px;
+    margin: 0 auto;
+    background-color: #fafafa;
+}
+
+.container > div {
+    display: block;
+    clear: both;
+    padding: 1rem;
+    border: 1px solid red;
+}
+
+.container input {
+    float: right;
+    width: 300px;
+}

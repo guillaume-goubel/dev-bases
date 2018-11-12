@@ -1,0 +1,42 @@
+[
+    {
+        "title": "Aquaman",
+        "src": "aquaman.jpg"
+    },
+    {
+        "title": "Batman",
+        "src": "batman.jpg"
+    },
+    {
+        "title": "Captainman",
+        "src": "captainman.jpg"
+    },
+    {
+        "title": "Deadpool",
+        "src": "deadpool.jpg"
+    },
+    {
+        "title": "Durotan",
+        "src": "durotan.jpg"
+    },
+    {
+        "title": "Ironman",
+        "src": "ironman.jpg"
+    },
+    {
+        "title": "Mario",
+        "src": "mario.jpg"
+    },
+    {
+        "title": "Optimus",
+        "src": "optimus.jpg"
+    },
+    {
+        "title": "Palpatine",
+        "src": "palpatine.jpg"
+    },
+    {
+        "title": "Superman",
+        "src": "superman.jpg"
+    }
+]

@@ -12,7 +12,6 @@ class Personnage {
     private $_vitalite;
 
 
-
     /***********************
     * * CONSTRUCTOR 
     ************************/
