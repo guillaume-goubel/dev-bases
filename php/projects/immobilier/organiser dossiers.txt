@@ -1,0 +1,29 @@
+﻿Organiser les dossiers:
+
+PROJET/--
+assets/ -- data/ {files, pictures , sounds , videos}
+assets/ -- styles/ -- css/-- {la future feuilles ccs.min} + sass/--{styles.scss}
+
+Connection des feuilles de styles :
+λ sass --watch assets/styles/sass/app.scss:assets/styles/css/app.min.css --style compressed
+
+Faire le link du bon css dans le fichier html :
+<link rel="stylesheet" href="assets/styles/css/app.min.css">13:00 06/10/2018
+
+
+
+
+Mettre une image en background
+background-image: url(../../../assets/data/pictures/....jpg);
+
+ou 
+
+background-image: url(../../data/pictures/concert1.jpg);
+
+
+
+connection chez moi SASS
+λ cd c:/DEVELOPPEUR WEB/WEBFORCE3/JQUERY/"project"
+
+connection sass WEBFORCE3
+cd c:/GG/java_script/JQUERY/"projet"

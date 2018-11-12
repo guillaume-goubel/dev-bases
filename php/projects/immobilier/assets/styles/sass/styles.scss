@@ -1,0 +1,100 @@
+///////////ALL
+
+#presentation{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/////////////ADD
+
+div#update.row {
+    max-height: 200rem;
+}
+
+div#form-update.container {
+    max-height: 200rem;
+}
+
+
+label {
+    color:#3A589E;
+    font-weight: 600;
+}
+
+
+div#message-failed{
+    display: none;
+}
+
+
+div#message-success{
+    display: block;
+}
+
+
+
+////////INDEX
+
+div#product {
+    background-color: aliceblue;
+    display: flex;
+}
+
+div#details-produit.card-body {
+    display: flex;
+
+    img {
+        display: block;
+        width: 20%;
+    }
+
+    #menu-gauche {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        width: 15%;
+        border-right: 2px solid black;
+
+        margin-left: 2%;
+    }
+
+    #menu-droit {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 15%;
+
+        margin-left: 2%;
+        border-right: 2px solid black;
+    }
+
+    #menu-description {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        width: 60%;
+        margin-left: 2%;
+        border-right: 2px solid black;
+
+    }
+}
+
+strong {
+    font-weight: 600;
+}
+
+#img-delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+div.feedback {
+    color: red;
+    font-weight: 600;
+}

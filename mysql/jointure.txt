@@ -1,0 +1,17 @@
+LEFT JOIN : selectionner tous les articles
+
+
+SELECT * FROM articles 
+LEFT JOIN autors ON articles.autors_id = autors.id; : selctionner tous les auterus même ceux qui n'ont aps ecrit d'articles
+
+INNER JOIN : selectionner seulement les articles qui ont un auteur
+
+RIGHT JOIN : selectionner tous les auteurs même ceux qui n'ont pas écrit d'article un auteur
+
+
+
+Sélectionner les pizzas qui ont :
+SELECT * FROM pizza 
+
+INNER JOIN pizza_has_size ON pizza_has_size.pizza_id = pizza.id 
+INNER JOIN size ON pizza_has_size.size_id = size.id;
