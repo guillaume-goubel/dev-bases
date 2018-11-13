@@ -1,6 +1,7 @@
 <?php
+require_once __DIR__.'/Utils.php';
 
-class Voiture {
+abstract class Vehicule {
 
     /*****************
     * ! CONSTANTES
@@ -57,6 +58,7 @@ class Voiture {
     /*****************
     * ! METHODES
     ******************/
+
     //*CONSTRUCTOR
     function __construct(string $marque, string $modele, string $couleur, string $conducteur = "")
     {
@@ -66,39 +68,29 @@ class Voiture {
         $this->set_conducteur($conducteur);
     }
 
-    //*SETTER
-    private function set_marque($marque)
+    //******************************* */
+     private function set_marque($marque)
     {
-        $this->_marque = $marque;
+        $this->_marque = $this->Format_set_marque($marque);
+        return $this;   
     }
 
-    private function set_modele($modele)
-    {
-        $this->_modele = $modele;
-    }
-
-    private function set_couleur($couleur)
-    {
-        $this->_couleur = $couleur;
-    }
-
-    private function set_conducteur($conducteur)
-    {
-        $this->_conducteur = $conducteur;
-    }
-
-    private function set_vitesseMax($vitesseMax)
-    {
-        $this->_vitesseMax = $vitesseMax;
-    }
-
-    
-
-    
-    //*GETTER
     public function get_marque()
     {
         return $this->_marque;
+    }
+ 
+    private function Format_set_marque($marque)
+    {
+        return strtoupper($marque); 
+        /* return Utils::myUcfirst($brand); */
+    }
+
+    //******************************* */
+    protected function set_modele($modele)
+    {
+        $this->_modele = $modele;
+        return $this;
     }
 
     public function get_modele()
@@ -106,9 +98,24 @@ class Voiture {
         return $this->_modele;
     }
 
+
+    //******************************* */
+    private function set_couleur($couleur)
+    {
+        $this->_couleur = $couleur;
+        return $this;
+    }
+
     public function get_couleur()
     {
         return $this->_couleur;
+    }
+
+    //******************************* */
+    private function set_conducteur($conducteur)
+    {
+        $this->_conducteur = $conducteur;
+        return $this;
     }
 
     public function get_conducteur()
@@ -116,9 +123,11 @@ class Voiture {
         return $this->_conducteur;
     }
 
-    public function get_vitesse()
+    //******************************* */
+    private function set_vitesseMax($vitesseMax)
     {
-        return $this->_vitesse;
+        $this->_vitesseMax = $vitesseMax;
+        return $this;
     }
 
     public function get_vitesseMax()
@@ -126,8 +135,14 @@ class Voiture {
         return $this->_vitesseMax;
     }
 
+    //******************************* */
+    public function get_vitesse()
+    {
+        return $this->_vitesse;
+    }
 
-    //*ACTION
+
+    //*ACTIONS
     public function demarrer()
     {
 
@@ -193,7 +208,6 @@ class Voiture {
             return "La voiture doit rouler pour freiner !";
         }
     }
-
 
 
     public function tourner(string $direction)
