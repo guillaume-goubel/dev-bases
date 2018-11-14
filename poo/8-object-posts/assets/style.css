@@ -1,0 +1,36 @@
+
+body{
+    padding: 0;
+    margin: 0;
+}
+
+#main-container{
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+
+.gauche{
+    width:1500px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+.droite{
+    width:1500px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+}
+
+

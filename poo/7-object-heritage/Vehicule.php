@@ -66,7 +66,15 @@ abstract class Vehicule {
         $this->set_modele($modele);
         $this->set_couleur($couleur);
         $this->set_conducteur($conducteur);
+
+
+        //EXEMPLE DE VARIABLES DANS LE CONSTRUCTEUR
+        /* $p = $this->getPuissance(); */
+        $f = fopen("voiture.txt", "a+");
+        fwrite($f, date("Y-m-d H:i:s"). " Nouvelle voiture crée : ".$marque ."\n");
+        fclose($f);
     }
+
 
     //******************************* */
      private function set_marque($marque)
@@ -82,9 +90,11 @@ abstract class Vehicule {
  
     private function Format_set_marque($marque)
     {
-        return strtoupper($marque); 
-        /* return Utils::myUcfirst($brand); */
+        // return strtoupper($marque); 
+        return Utils::myUcfirst($marque);
     }
+
+
 
     //******************************* */
     protected function set_modele($modele)

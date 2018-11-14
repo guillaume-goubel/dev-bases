@@ -1,15 +1,10 @@
 <?php
 
-
-require_once __DIR__.'/Vehicule.php';
-require_once __DIR__.'/Utils.php';
-
-class Moto extends Vehicule {
+class Article extends Post{
 
     /*****************
     * ! CONSTANTES
     ******************/
-    const ROUES = 2;
 
     /*****************
     * ! PROPRIETES
