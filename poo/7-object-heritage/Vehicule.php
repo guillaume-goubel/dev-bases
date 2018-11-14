@@ -112,7 +112,7 @@ abstract class Vehicule {
     //******************************* */
     private function set_couleur($couleur)
     {
-        $this->_couleur = $couleur;
+        $this->_couleur = $this->Format_set_couleur($couleur);
         return $this;
     }
 
@@ -120,6 +120,13 @@ abstract class Vehicule {
     {
         return $this->_couleur;
     }
+
+    private function Format_set_couleur($couleur)
+    {
+        // return strtoupper($marque); 
+        return Utils::myUcfirst($couleur); 
+    }
+
 
     //******************************* */
     private function set_conducteur($conducteur)
@@ -144,6 +151,7 @@ abstract class Vehicule {
     {
         return $this->_vitesseMax;
     }
+
 
     //******************************* */
     public function get_vitesse()
