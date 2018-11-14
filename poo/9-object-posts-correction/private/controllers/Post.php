@@ -131,6 +131,8 @@ abstract class Post {
         return $this;
     }
 
+
+
     /**
      * Get the value of slug
      */ 
@@ -146,10 +148,21 @@ abstract class Post {
      */ 
     public function setSlug($slug)
     {
-        $this->slug = Utils::slugify($slug);
+        $this->slug = $this->Format_setSlug($slug);
 
         return $this;
     }
+
+
+    public function Format_setSlug($slug)
+    {
+        return Utils::slugify($slug);
+
+    }
+
+
+
+
 
     /**
      * Get the value of title

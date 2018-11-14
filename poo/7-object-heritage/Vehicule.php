@@ -88,10 +88,10 @@ abstract class Vehicule {
         return $this->_marque;
     }
  
-    private function Format_set_marque($marque)
+    private function Format_set_marque($input)
     {
         // return strtoupper($marque); 
-        return Utils::myUcfirst($marque);
+        return Utils::myUcfirst($input);
     }
 
 
@@ -99,7 +99,7 @@ abstract class Vehicule {
     //******************************* */
     protected function set_modele($modele)
     {
-        $this->_modele = $modele;
+        $this->_modele = $this->Format_set_modele($modele);
         return $this;
     }
 
@@ -107,6 +107,14 @@ abstract class Vehicule {
     {
         return $this->_modele;
     }
+
+    public function Format_set_modele($modele)
+    {
+        return Utils::slugify($modele);
+    }
+
+
+
 
 
     //******************************* */
