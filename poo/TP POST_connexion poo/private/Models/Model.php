@@ -9,15 +9,18 @@ abstract class Model {
 
     public function __construct()
     {
-        // Instance de PDO
-        try {
-            $this->db = new \PDO("mysql:dbname=wp_diw10;host=127.0.0.1", "root", "myosw3sql", [
-                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING,
-                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
-            ]);
-        } catch(\Exception $e) {
-            echo 'Connexion échouée : ' . $e->getMessage();
-        }
+        //instance de PDO
+        try{
+
+            $this->db = new \PDO ('mysql:host=localhost;dbname=blog;charset=UTF8', 'root' , '');
+            $this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            $this->db->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE , \PDO::FETCH_ASSOC);      
+        } 
+         
+         catch (\Exception $e)
+        {
+            echo 'connexion échouée !' .$e->getMessage();
+        } 
     }
 
     private function getTable()

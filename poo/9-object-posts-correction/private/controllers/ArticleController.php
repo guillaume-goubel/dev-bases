@@ -17,7 +17,8 @@ class ArticleController extends Post {
 
     public function __construct(){   
         $this->_model = new ArticleModel;
-        var_dump($this->_model->getAll());
+        
+        /* var_dump($this->_model->getAll()); */
     }
     
     /**
@@ -25,8 +26,8 @@ class ArticleController extends Post {
     */
     public function ViewAll()
     {   
-        foreach ($this->_model->getAll() as $article) {
-        }
+/*         foreach ($this->_model->getAll() as $article) {
+        } */
     }
 
 

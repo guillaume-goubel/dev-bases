@@ -3,6 +3,7 @@
 namespace Controllers;
 
 abstract class PostController {
+   
     private $title;
     private $slug;
     private $content;

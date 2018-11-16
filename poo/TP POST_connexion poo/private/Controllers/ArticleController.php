@@ -5,6 +5,7 @@ namespace Controllers;
 use \Models\ArticleModel;
 
 class ArticleController extends PostController {
+    
     const TYPE = "article";
 
     private $model;

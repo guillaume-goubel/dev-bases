@@ -1,0 +1,11 @@
+form{
+    margin-top: 300px;
+}
+
+#gauche{
+    margin-left: 150px;
+}
+
+#afficher{
+    display:none;
+}

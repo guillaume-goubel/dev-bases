@@ -12,6 +12,9 @@ function autoload_models($class) {
 }
 spl_autoload_register('autoload_models');
 
+
+
+
 use \Controllers\ArticleController as Article;
 use \Controllers\User;
 use \Models\ArticleModel;
