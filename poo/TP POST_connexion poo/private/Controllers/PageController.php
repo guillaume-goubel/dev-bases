@@ -2,6 +2,6 @@
 
 namespace Controllers;
 
-class Page extends Post {
+class PageController extends PostController {
     const TYPE = "page";
 }

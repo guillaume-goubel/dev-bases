@@ -1,0 +1,52 @@
+Projet WPO
+
+> Créer et afficher des :
+    - Articles
+    - Pages
+    - Utilisateur
+
+- Titre
+- Permalien (slug)
+- Contenu
+- Auteur
+- Date de création
+- Date de publication
+- Categories
+- Mots clés
+- Type (article / page)
+
+- Nom
+- Prenom
+
+// ----
+BDD
+
+
+> TABLE POSTS 
+- id (AI NN UN int())
+- users_id (NN smallint(3))
+- title (NN varchar(255))
+- slug (NN UN varchar(255))
+- content (TEXT)
+- date_create (NN DATETIME() DEFAULT='NOW()')
+- date_publish (DATETIME())
+- categories (NN TEXT DEFAULT='[]')
+- keywords (NN TEXT DEFAULT='[]')
+- type (NN varchar(7))
+- state (NN int(1) DEFAULT=0)
+
+
+> TABLE USERS
+- id (AI NN UN smallint(3))
+- firstname (NN varchar(40))
+- lastname (NN varchar(40))
+- email (NN UN varchar(160))
+- passwd (NN char(64))
+
+
+
+Class
+- Post (abstraite)
+- Article (hérite de Post)
+- Page (hérite de Post)
+- User

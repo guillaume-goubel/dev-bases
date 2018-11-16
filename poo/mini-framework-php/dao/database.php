@@ -19,8 +19,8 @@ class Database
 
     // crée la chaine de connexion
     public function load() 
-    {
-    	switch ($GLOBALS['database_type']) {
+    {	
+		switch ($GLOBALS['database_type']) {
     		case MYSQL:
     			$this->_load_mysql();
     			break;

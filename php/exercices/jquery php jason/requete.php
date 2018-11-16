@@ -36,7 +36,7 @@ $query = $db->query($sql);
 
 $results = $query->fetchAll();
 header("Content-type:application/json"); 
-$results = json_encode($results);
+$results = json_decode($results);
 
 echo($results);
 

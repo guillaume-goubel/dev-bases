@@ -1,5 +1,7 @@
 <?php
 
+namespace Controllers;
+
 class User {
     private $firstname;
     private $lastname;

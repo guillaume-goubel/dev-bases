@@ -7,8 +7,6 @@ class Utils {
         return ucfirst(strtolower($str));
     }
 
-
-
     public static function slugify($text)
     {
         // replace non letter or digits by -

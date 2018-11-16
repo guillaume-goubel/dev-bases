@@ -8,7 +8,6 @@ class Utils {
     }
 
 
-
     public static function slugify($text)
     {
         // replace non letter or digits by -
