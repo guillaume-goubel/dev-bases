@@ -13,7 +13,7 @@ var Elmt_list_playList = $('#Playlist-list');
 var Elmt_list = $('#list')
 
 // Source AJAX
-/* var source = "http://osw3.net/playlists.php"; */
+var source = "http://osw3.net/playlists.php"; 
 
 
 $(document).ready(function () {
@@ -71,8 +71,7 @@ function parsePlayLists() {
 
     $.each(playLists.playlists, function (key, value) {
 
-        
-
+    
         var btn_list = $('<button></button>');
         Elmt_list_playList.append(btn_list);
         btn_list.html(value.title);
@@ -93,16 +92,15 @@ function parsePlayLists() {
         var tracks = value.tracks;
         list_li_list.text(tracks);
         
-
-
-        /* $.each(playLists.tracks, function (key, value) {
+        $.each(playLists.tracks, function (key, value) {
             list_li_list.html(value.artist);
 
-        }); */
+        });
 
     });
 
 }
+
 var i = 7;
 
 function change() {

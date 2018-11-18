@@ -1,7 +1,7 @@
 "use strict";
 
 // Playlist Source
-/* var source = "http://osw3.net/playlists.php"; */
+var source = "http://osw3.net/playlists.php"; 
 
 // Retrieve declarations
 var playLists = {};
@@ -9,8 +9,6 @@ var playLists = {};
 // Retrieve Elements in JQUERY
 var body = $('body');
 var elmts_playlist = $('#play-list');
-
-
 
 
 

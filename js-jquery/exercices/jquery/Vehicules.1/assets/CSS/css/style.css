@@ -50,3 +50,26 @@ header{
     width: 100%;
     height: 100%;
 }
+
+
+#logo{
+
+    margin-left: 150px;
+    width: 150px;
+    height: 150px;
+
+    background-color: red;
+
+}
+
+
+#global-list{
+    display: flex;
+
+    width: 800px;
+    height: 200px;
+
+    justify-content: center;
+    align-items: center;
+
+}

@@ -3,21 +3,37 @@
 
 class FormatText{
 
-    private $_text;
+    public $_text;
 
     public function set($text){
-
-        return $this->hello = $hello;
-
+        $this->_text = $text;
+        return $this;  
     }
-    
-        
-    /**
-    * Retourne la chaine finale;
-    */
-    public function getString(){
 
-    }
+    public function print(){
+        return "<li>" .$this->_text ."</li>" ;
+     }
+
+     public function bold(){
+        $this->_text = "<strong>" .$this->_text ."</strong>" ;
+        return $this;
+     }
+
+     public function italic(){
+        $this->_text = "<em>" .$this->_text ."</em>" ;
+        return $this;
+     }
+
+     public function strike(){
+        $this->_text = "<strike>" .$this->_text ."</strike>" ;
+        return $this;
+     }
+
+
+
+
+
+
 
 }
 
