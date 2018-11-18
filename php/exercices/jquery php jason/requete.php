@@ -1,8 +1,6 @@
 
 <?php
 
-
-
 $options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -10,10 +8,9 @@ $options = [
 
 try{
     
-    $db = new PDO ('mysql:host=localhost;dbname=users;charset=UTF8', 'root' , '', $options);
+    $db = new PDO ('mysql:host=localhost;dbname=informations;charset=UTF8', 'root' , '', $options);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE , PDO::FETCH_ASSOC); 
-
  } 
   
  catch (Exception $e)
@@ -30,15 +27,22 @@ try{
 }
 
 
-$sql = "SELECT * FROM informations";
+$sql = "SELECT * FROM users";
 
 $query = $db->query($sql);
 
 $results = $query->fetchAll();
 header("Content-type:application/json"); 
-$results = json_decode($results);
+$results = json_encode($results);
 
-echo($results);
+echo $results;
+
+// foreach ($results as $key => $result) {
+//     echo '<div>'.$result['name'] .$result['last_name'] .'</div>';
+// }
+
+
+
 
 
 

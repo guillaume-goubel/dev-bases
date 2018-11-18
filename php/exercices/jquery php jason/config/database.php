@@ -11,10 +11,9 @@ $options = [
 
 try{
     
-    $db = new PDO ('mysql:host=localhost;dbname=users;charset=UTF8', 'root' , '', $options);
+    $db = new PDO ('mysql:host=localhost;dbname=informations;charset=UTF8', 'root' , '', $options);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE , PDO::FETCH_ASSOC); 
-
  } 
  
  
