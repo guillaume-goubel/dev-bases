@@ -15,9 +15,12 @@ ul ul {
 }
 
 #wrapper {  
-    width: 220px;
+    width: 440px;
     margin: 100px auto;
     font-size: 0.8125em; /* taille 13 / 16 = 0.8125 */
+
+    display: flex;
+
 }
 
 .menu {
@@ -40,7 +43,7 @@ ul ul {
 
     box-shadow: inset 0px 1px 0px 0px #878e98;
     
-    width: 100%;
+    width: 220px;
     height: 2.75em;
     
     line-height: 2.75em;

@@ -27,11 +27,6 @@
         </ul>
     </div>
 
-    <ul id="menu1">
-        <li><a href="#link1">Home</a></li>
-        <li><a href="#link2">About</a></li>
-        <li><a href="#link3">Contact</a></li>
-    </ul>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
