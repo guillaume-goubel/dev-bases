@@ -133,11 +133,12 @@ class CountryCapital {
  */
 
 $europa = new CountryCapital("europa.json");
-/* $List = $europa->_countries_objet;
+
+$List = $europa->_countries_objet;
+
 foreach ($List as $key => $value) {
-    echo $value->country."<br>";
+    echo $value->country.$key."<br>";
 }
- */
 
 $europa->getCapitalByCountry("france");
 $europa->getCountryByCapital("paris");

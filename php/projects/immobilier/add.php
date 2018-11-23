@@ -10,9 +10,6 @@ $array_errors = [];
 
 // TODO
 
-
-
-
 if(!empty($_POST)){
 
     $titre = $_POST['titre'];
