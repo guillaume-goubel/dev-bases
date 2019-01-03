@@ -24,12 +24,15 @@ $eleves = [
 // echo '<br /><br />';
 
 echo '<h2>1/ Afficher la liste de tous les éléves avec leurs notes.</h2>';
+
 foreach ($eleves as $eleve) {
+    
     echo $eleve['nom'] . ' a eu ';
 
     // Nombre de notes
     $notesCount = count($eleve['notes']);
     // Parcourir toutes les notes de l'éléve
+    
     foreach ($eleve['notes'] as $key => $note) {
         echo $note;
         // Si la note est la dernière
@@ -48,9 +51,10 @@ foreach ($eleves as $eleve) {
 }
 
 echo '<h2>2/ Calculer la moyenne de Jean. On part de $eleves[2][\'notes\']</h2>';
-/* La fonction count permet de compter les éléments d'un tableau */
+
 $jeanNotes = $eleves[2]['notes']; // [5, 8, 9, 10]
 
+/* La fonction count permet de compter les éléments d'un tableau */
 $sum = 0;
 // Nombre de notes
 $notesCount = count($jeanNotes);

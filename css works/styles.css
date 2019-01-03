@@ -18,9 +18,6 @@ ul ul {
     width: 440px;
     margin: 100px auto;
     font-size: 0.8125em; /* taille 13 / 16 = 0.8125 */
-
-    display: flex;
-
 }
 
 .menu {
