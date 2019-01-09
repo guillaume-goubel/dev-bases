@@ -1,0 +1,59 @@
+html {
+    box-sizing: border-box;
+}
+
+/*CREATE ACCOUNT */
+.offset-md-1{
+    margin-left: 0;
+}
+
+.container{
+    padding:0;
+}
+
+#registerForm{
+    align-items: center;
+    justify-content: center;
+}
+
+/* MODAL INSCRIPTION */
+#inscriptionContainer-success{
+    position: fixed;
+    top: 3rem;
+    z-index: 1;
+    padding:0;
+    display:block
+}
+
+#inscriptionModal{
+    background-color: rgb(51, 234, 60);
+    color:white;
+    font-weight: 700;
+    text-align: center;
+}
+
+#inscriptionContainer-default{
+    display:none
+}
+
+/* MODAL ERRORS */
+
+#errorsModal{
+    background-color: red;
+    color:white;
+    font-weight: 700;
+    text-align: center;
+}
+
+#errorsContainer-actived{
+    position: fixed;
+    top: 10rem;
+    z-index: 1;
+    padding:0;
+}
+
+#errorsContainer-default{
+    display:none
+}
+
+

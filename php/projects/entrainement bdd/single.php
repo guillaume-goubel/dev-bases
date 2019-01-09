@@ -4,22 +4,17 @@ require_once __DIR__.'/partials/header.php';
 
 $name = $price = null;
 
-
-
-
-
-//////////////////////PRESENTER SIGLE
-
 $choice = $_GET['id'];
 
-$query = $db->prepare("SELECT * FROM `products` WHERE id_products = :choice");
+$query = $db->prepare('SELECT * FROM products WHERE id_products = :choice');
 $query->bindValue(':choice', $choice, PDO::PARAM_INT);
 $query->execute();
 
-$products = $query ->fetch();
-
-
-
+if ($query->rowCount() !=1 ){
+    die("L'article n'existe pas !");
+}else {
+    $products = $query ->fetch();
+}
 ?>
 
 <div class="album py-5 bg-light">
@@ -44,32 +39,15 @@ $products = $query ->fetch();
                         <p class="card-text">
                             <?= $products['prices']; ?> : Euros </p>
                         <!-- Button -->
-                        <a href="modifier.php?id=<?php echo $products['id_products']?>&name=<?php echo $products['names']?>&price=<?php echo $products['prices']?>"><button type="button" class="btn btn-primary">Primary</button></a>
-
+                        <a href="modifier.php?id=<?= $products['id_products']?>"><button type="button" class="btn btn-primary">Primary</button></a>
 
                     </div>
-
                 </div>
                 <!-- Card -->
-
-
-
-
             </div>
-
-
         </div>
-
     </div>
-
-
-
 </div>
-
-
-
-
-
 
 
 <?php 

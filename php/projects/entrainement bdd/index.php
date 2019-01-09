@@ -10,8 +10,8 @@ if(empty($_GET['category'])){
 
 }
 
-
 ?>
+
 
 <main role="main">
 
@@ -28,11 +28,23 @@ if(empty($_GET['category'])){
 
           <!--Menu-->
           <div class="dropdown-menu dropdown-primary" id="your-custom-id">
-            <a class="dropdown-item mdb-dropdownLink-1" href="index.php?category=1">Les Ordinateurs</a>
-            <a class="dropdown-item mdb-dropdownLink-1" href="index.php?category=2">Les chaines hi-fi</a>
-            <a class="dropdown-item mdb-dropdownLink-1" href="index.php?category=3">Les télévisions</a>
+
+          
+          <?php
+
+          // Le menu des catégories 
+          $query = $db -> query('SELECT * FROM categories');
+          $results = $query->fetchAll();
+          
+          foreach ($results as $key => $result) { ?>
+
+            <a class="dropdown-item mdb-dropdownLink-1" href="index.php?category=<?= $result['id_categories']?>"><?= $result['names'] ?></a>
+
+            <?php }?>
+
           </div>
         </div>
+
         <!--/Dropdown primary-->
 
         <a href="ajouter.php"><button type="button" class="btn btn-primary">Ajouter</button></a>
@@ -46,21 +58,17 @@ if(empty($_GET['category'])){
       <div class="row">
 
 
-
   <?php
-  /* $query = $db ->query('SELECT * FROM `products`');
-  $products = $query ->fetchAll(); */
 
   $prepare = $db -> prepare('SELECT * FROM products WHERE categories_id = :category');
-  
   $categories_id = $_GET['category'];
-
+ 
   $prepare->bindValue(':category', $categories_id, PDO::PARAM_INT);
   $prepare->execute();
 
   $results = $prepare->fetchAll();
 
-  foreach ( $results as $key => $result) { ?>
+  foreach ($results as $key => $result) { ?>
 
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
@@ -73,10 +81,11 @@ if(empty($_GET['category'])){
           
             <div class="card-body">
               <p class="card-text"><?= $result['names']; ?></p>
+              <p class="card-text"><?= $result['prices']; ?></p>
                 <div class="d-flex justify-content-between align-items-center">
 
                 <div class="btn-group">
-                <a href="single.php?id=<?php echo $result['id_products']?>&name=<?php echo $result['names']?>&price=<?php echo $result['prices']?>"><button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                <a href="single.php?id=<?= $result['id_products']?>&name=<?= $result['names']?>&price=<?= $result['prices']?>"><button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
                   
                 </div>
               </div>

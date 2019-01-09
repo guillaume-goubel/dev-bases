@@ -29,6 +29,7 @@ $fullStar = 1; // Nombre d'étoiles pleines
 $indexStar = 5; // Position
 
 for ($x = 0; $x < 6; $x++) {
+
     for ($y = 0; $y < 11; $y++) {
         if ($y == $indexStar) {
             for ($z = 0; $z < $fullStar; $z++) {
@@ -39,8 +40,9 @@ for ($x = 0; $x < 6; $x++) {
             echo '☆';
         }
     }
-    $indexStar--;
+
     $fullStar += 2;
+    $indexStar--;
     echo '<br />';
 }
 
@@ -52,6 +54,7 @@ echo '-------------- <br /><br />';
 echo '<table align="center" border="1" style="border-collapse: collapse">';
 // Légende du tableau (1ére ligne)
 echo '<tr> <td align="center" style="width: 20px; background-color: grey">x</td>';
+
 for ($z = 0; $z <= 10; $z++) {
     $color = ($z % 2) ? 'grey' : 'lightgrey';
     echo '<td align="center" style="width: 20px; background-color: '.$color.'">'.$z.'</td>';

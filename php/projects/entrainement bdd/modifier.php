@@ -1,33 +1,26 @@
 <?php 
 require_once __DIR__.'/partials/header.php';
 
-/* $query = $db->prepare('SELECT * FROM products WHERE id_products = :id'); */
-/* $update = $db->prepare('UPDATE products SET names=:names WHERE id_products = :id');  */
-
-
-
 if(!empty($_POST)){
 
     $name = $_POST['name'];
     $price = $_POST['price'];
     $id = isset($_GET['id']) ? $_GET['id'] : 0; 
 
-$sql = "UPDATE products SET 
-            names = :name, 
-            prices = :price
-            WHERE id_products = :id ";
+    $sql = "UPDATE products SET 
+                names = :name, 
+                prices = :price
+                WHERE id_products = :id ";
 
-$update = $db->prepare($sql);
-$update->bindValue(':id', $id, PDO::PARAM_INT);
-$update->bindValue(':name', $name, PDO::PARAM_STR);
-$update->bindValue(':price', $_POST['price'], PDO::PARAM_INT);
-$update->execute();  
-
+    $update = $db->prepare($sql);
+    $update->bindValue(':id', $id, PDO::PARAM_INT);
+    $update->bindValue(':name', $name, PDO::PARAM_STR);
+    $update->bindValue(':price', $_POST['price'], PDO::PARAM_INT);
+    $update->execute();  
 }
 
 
 ?>
-
 
 <div class="container">
     <div class="row">
@@ -46,24 +39,13 @@ $update->execute();
 
             </form>
 
-
             <form action="#" method="POST">
 
-                <a href="delete.php?id=<?php echo $_GET['id'] ;?>" class="btn btn-danger btn-block my-4" type="submit">Supprimer</button></a>
+                <a href="delete.php?id=<?= $_GET['id'] ;?>" class="btn btn-danger btn-block my-4" type="submit">Supprimer</button></a>
 
             </form>
-
-
-
-
-
         </div>
-
-
-
     </div>
-
-
 </div>
 
 

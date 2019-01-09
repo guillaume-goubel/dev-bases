@@ -9,10 +9,6 @@ $('button').on({ // PASSAGE SOURIS + le click de la fonction ci-dessus
             },
         });
 
-
-
-        
-
         
             $(document).ready(function () {
 

@@ -13,13 +13,12 @@ if(!empty($_POST)){
     $price = $_POST['price'];
     $image = $_FILES['image'];
     $category = $_POST['category'];
-
 }
-
 
 if(!empty($_POST)){
 
     $formIsValid = true;
+    // Vérification de la présence de tous les éléments du formulaire
 
     if(empty($_POST['name'])){
         $formIsValid = false;
@@ -40,12 +39,18 @@ if(!empty($_POST)){
         $formIsValid = false;
         echo "manque l'image" ."<br>";
     }
-    
+
+    // Vérification de la conformité de l'image
+    $file = $image['tmp_name'];
+    $allowedExtentions = ['image/gif', 'image/png', 'image/jpeg', 'image/bmp', 'image/jpg' ];
+
+    if(!in_array($image['type'], $allowedExtentions) && $image['error'] !== 4  ){
+        $isValid = false;
+        echo "Ce type de fichier image n'est pas autorisé";   
+    } 
 }
 
-
-var_dump($formIsValid);
-
+// Si toutes les vérifications sont OK
 if ($formIsValid === true){
     $file = $image['tmp_name']; 
     move_uploaded_file($file, __DIR__ ."/assets/images/".$image['name']);
@@ -67,19 +72,9 @@ if ($formIsValid === true){
     }
 
     $query->bindValue(':categories_id', $category, PDO::PARAM_INT);
-
     $query->execute();
 
-    var_dump($category);
-    var_dump($_POST);
-
-
 }
-
-
-
-
-
 
 ?>
 

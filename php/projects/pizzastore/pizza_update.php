@@ -206,8 +206,7 @@ if(!empty($_POST)){ // si au moins un des POST a été envoyé donc on rentre da
         
         ;?>"
             
-            
-            
+        
     
             placeholder="Nom de la pizza" name="admin_pizza_name"
                 value="<?php echo $admin_pizza_name; ?>">

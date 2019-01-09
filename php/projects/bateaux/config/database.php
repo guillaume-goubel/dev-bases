@@ -12,7 +12,7 @@ $options = [
 
 try{
     
-    $db = new PDO ('mysql:host=localhost;dbname=entrainement;charset=UTF8', 'root' , '', $options);
+    $db = new PDO ('mysql:host=localhost;dbname=bateaux;charset=UTF8', 'root' , '', $options);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE , PDO::FETCH_ASSOC); 
     $db->setAttribute(PDO::ATTR_ERRMODE , PDO::ERRMODE_WARNING); 
