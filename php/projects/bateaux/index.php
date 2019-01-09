@@ -1,5 +1,7 @@
 <?php 
 require_once __DIR__.'/partials/header.php';
+
+
 ?>
 
     <!-- Jumbotron -->
@@ -30,7 +32,7 @@ require_once __DIR__.'/partials/header.php';
         <hr class="my-4">
 
         <div class="pt-2">
-            <a href="createCount.php"><button type="button" class="btn btn-blue waves-effect">Créer un compte</button></a>
+            <a href="createAccountUser.php"><button type="button" class="btn btn-blue waves-effect">Créer un compte</button></a>
             <button type="button" class="btn btn-outline-primary waves-effect">Se connecter</button>
         </div>
 

@@ -1,4 +1,4 @@
-<?php require_once __DIR__.'/../config/database.php'; 
+<?php 
 require_once __DIR__.'/../config/database.php'; 
 require_once __DIR__.'/../config/functions.php';
 ?>
@@ -21,6 +21,8 @@ require_once __DIR__.'/../config/functions.php';
     <link rel="stylesheet" href="assets/styles/css/mdb.css" >
     <link rel="stylesheet" href="assets/styles/css/styles.min.css">
 
+    <!-- Scrpit recaptcha -->
+    <script src='https://www.google.com/recaptcha/api.js'></script> 
 </head>
 
 <body>

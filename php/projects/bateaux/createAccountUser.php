@@ -2,15 +2,17 @@
 require_once __DIR__.'/partials/header.php';
 
 /****************************************
- * VARIABLES
+ * DECLARATION DES VARIABLES
  *****************************************/
-// variable dans le formulaire d'inscription
-$name = $email = $password = $verifPassword = null;
-
-// l'abonnement est par défaut 0 , soit faux (boolean)
+// variable dans le formulaire d'inscription à null dès le lancement du script
+$name = $email = $password = $verifPassword = $confirmationToken = null;
+// l'abonnement est par défaut 0 , soit faux (boolean). L'utilisateur doit cocher pour accepter (et le faire passer en valuer1)
 $confirmationToNewsLetter = 0;
 // le role par défaut des users (role admin est à créer dans la Bdd)
 $role = "user";
+// la date de création du compte. Il faudra la transformer en string pour la mettre en base
+date_default_timezone_set('Europe/Paris'); // précision du fuseau horaire de PAris
+$dateCreation_dateFormat = new \Datetime();
 
 /*******************************************************************
  * CHECK DES ETAPES DE LA VERIFICATION ET VALIDATION DU FORMULAIRE
@@ -19,16 +21,12 @@ $role = "user";
 $formIsSend = false;
 //Tableau d'erreurs lors de la vérification du formulaire
 $errorsArray = [];
-
 //vérification formulaire complet avant enregistrement et les vérifications ci-dessous
 $formIsValid = false;
-
 //vérification pas de doublon de mail dans Bdd
 $emailIsAvailable = false;
-
 //envoi mail confirmation de création de compte à utilisateur
 $mailToSend = false;
-
 //message de confirmation affiché à utilisateur , si vrai , on lui indique le succe de son inscritopn
 $confirmationToSchow = false;
 
@@ -58,6 +56,11 @@ if($formIsSend){
         $errorsArray['nameLack'] = "Il manque le nom";  
     }
 
+    if( !preg_match(" /^[a-z0-9]+$/ ", $name ) && !isset($errorsArray['nameLack'])){
+        $formIsValid = false;
+        $errorsArray['nameFalse'] = "Le nom n'est pas correct";  
+    }
+
     if(empty($email)){
         $formIsValid = false;
         $errorsArray['email'] = "Il manque l'email";  
@@ -83,7 +86,7 @@ if($formIsSend){
         
         $emailIsAvailable = true;
     
-        $querySql = 'SELECT user_email FROM `users`
+        $querySql = 'SELECT `user_email` FROM `users`
                     WHERE user_email = :user_email';
     
         $query =  $db -> prepare($querySql);
@@ -92,9 +95,7 @@ if($formIsSend){
         $query -> execute();
         $count = $query->rowCount(); 
        
-        if($count === 1 && !isset($errorsArray['email'])) 
-        { 
-        // Mail déjà utilisé 
+        if($count === 1 && !isset($errorsArray['email'])){  // Vérifie en base si mail existe deja
         $formIsValid = false;
         $emailIsAvailable = false;
         $errorsArray['verifEmail'] = "L'email est deja utilisé";  
@@ -106,36 +107,38 @@ if($formIsSend){
 if($formIsValid && $emailIsAvailable ){
 
     $insertSql = 'INSERT INTO `users`
-                  (`user_name`, `user_email`, `user_password`, `user_role`,  `news_letter` ) 
-                  VALUES (:user_name, :user_email, :user_password, :user_role, :news_letter)' ;
+                  (`user_name`, `user_email`, `user_password`, `user_role`,  `news_letter`, `date_creation` , `confirmation_token` ) 
+                  VALUES (:user_name, :user_email, :user_password, :user_role, :news_letter, :date_creation , :confirmation_token )' ;
             
     $query = $db->prepare($insertSql);
+    
+    $name = htmlspecialchars($name); // Sécurisation et hachage
+    $email = htmlspecialchars($email);
+    $password = password_hash($password, PASSWORD_DEFAULT);
 
     $query->bindValue(':user_name', $name, PDO::PARAM_STR);
     $query->bindValue(':user_email', $email, PDO::PARAM_STR);
-
-    $password = password_hash($password, PASSWORD_DEFAULT);
-
     $query->bindValue(':user_password', $password, PDO::PARAM_STR);
-    $query->bindValue(':user_role', $role, PDO::PARAM_STR);
+    $query->bindValue(':user_role', $role, PDO::PARAM_STR); // Role est 'user' par défaut
 
-    // si l'utilisateur a coché oui : alors il est signalé 1 dans la base de donnée (true car boolean)
-    if (isset($_POST['newsLetter'])){
-        $confirmationToNewsLetter = 1;
-    }
-
+    if (isset($_POST['newsLetter'])){$confirmationToNewsLetter = 1;}  // si l'utilisateur a coché oui : alors il est signalé 1 dans la base de donnée (true car boolean)
     $query->bindValue(':news_letter', $confirmationToNewsLetter, PDO::PARAM_INT);
 
+    $dateCreation = $dateCreation_dateFormat->format('Y-m-d H:i:s');// La date de cration du compte convertie en string
+    $query->bindValue(':date_creation', $dateCreation, PDO::PARAM_STR); 
+
+    // Un token est envoyé en base de données
+    $confirmationToken = str_random(60);
+    $query->bindValue(':confirmation_token', $confirmationToken, PDO::PARAM_STR);
+
     $query->execute();
-    // Fermeture de la connextion à la base de données
-    $query = null;
-   
-    // on peut envoyer le mail de confirmation
-    $mailToSend = true;   
+    $query = null; // Fermeture de la connextion à la base de données
+    $mailToSend = true; // on peut alors envoyer le mail de confirmation  
 }
+
+// var_dump($confirmationToken);
     
-//Envoi du mail
-if($mailToSend){
+if($mailToSend){ //Envoi du mail vers le dernier id effectué
 
         $lastIdUser = $db->lastInsertId();
         $queryUserSql = 'SELECT * FROM `users`
@@ -157,14 +160,14 @@ if($mailToSend){
     
         $subject = "confirmation de votre inscription";
 
-
-        if (isset($_POST['newsLetter'])){
+        if (isset($_POST['newsLetter'])){ // Si utilisateur a cocher alors il y a un contenu "on" , sinon il n'y a rien d'envoyé
             $NewsLetterConfirmation = "Vous avez confirmé votre inscription à notre Newsletter";
-        }
-        else{
+        }else{
             $NewsLetterConfirmation = "Vous n'avez pas souhaité recevoir notre Newsletter";
             }
     
+            // var_dump($confirmationToken);
+
         $message='
         <html>
             <body>
@@ -179,7 +182,7 @@ if($mailToSend){
                 <div align="center">
                    Cher nouvel abonné : <strong>'.$UserName .' </strong>
                    <br />
-                   Bienvenue sur notre site !
+                   Merci de confirmer votrte inscription en cliquant sur ce lien : <a href="http://localhost/dev-bases/php/projects/bateaux/confirmUser.php?id='.$lastIdUser.'&amp;token='.$confirmationToken.'">lien</a>                            
                    <br />
                    <hr>
                 </div>
@@ -187,10 +190,11 @@ if($mailToSend){
                 <div align="center">'
                 .$NewsLetterConfirmation.'
                 </div>
+
             </body>
         </html>
         ';
-    
+
         $SendEmailOK = mail($UserEmail, $subject , $message, $header);
 
         // on peut envoyer le message de confirmation si le mail a bien été envoyé
@@ -200,13 +204,15 @@ if($mailToSend){
             $query = null;
         }?>
 
-<script>
-    // setTimeout(function () {
-    //         window.location = 'index.php';
-    //     }, 4000);
-    //     </script>
+    <script>
+         setTimeout(function () {
+            window.location = 'index.php';
+         }, 4000);
+    </script>
+<?php } 
 
-<?php } ?>
+?>
+
 
 <!-- Jumbotron -->
 <div class="jumbotron text-center">
@@ -240,9 +246,9 @@ if($mailToSend){
             <div class="modal-content">
                 <div class="modal-body" id="inscriptionModal">
                     <div class="row d-flex justify-content-center align-items-center">
-                        <p class="pt-3 pr-2">Votre compte est bien enregistré <br>
-                            Un email de confirmation a été envoyé</p>
-                        <p class="pt-3 pr-2">Vous pouvez maintenant vous connecter à votre compte</p>
+                        <p class="pt-3 pr-2">Votre demande a bien été prise en compte<br>
+                                             Un email vous a été envoyé. </p>
+                        <p class="pt-3 pr-2">Merci de confirmer via le lien envoyé</p>
                     </div>
                 </div>
             </div>
@@ -254,32 +260,30 @@ if($mailToSend){
 
         <form class="text-center border border-light p-5" method="POST" action="#">
 
-            <div class="form-row mb-4">
-                <div class="col">
-                    <!-- First name -->
-                    <input name="name" type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="Votre pseudo" value="<?= $formIsSend ? $name : null ?>">                                                  
-                </div>
-            </div>
+            <!-- First name -->
+            <input name="name" type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="Votre pseudo"
+                value="<?= $formIsSend ? $name : null ?>">
+            <small id="formInfo" class="form-text text-muted"> Lettres et chiffres seulement </small>
 
             <!-- E-mail -->
-            <input name="email" type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="Votre mail" value="<?= $formIsSend ? $email : null ?>">         
+            <input name="email" type="email" id="defaultRegisterFormEmail" class="form-control" placeholder="Votre mail"
+                value="<?= $formIsSend ? $email : null ?>">
+            <small id="formInfo" class="form-text text-muted"> Votre Email servira pour vous loger </small>   
 
             <!-- Password -->
             <input name="password" type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Mot de passe"
                 aria-describedby="defaultRegisterFormPasswordHelpBlock">
-            <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
-                Au moins 3 caractères
-            </small>
+            <small id="formInfo" class="form-text text-muted"> Au moins 3 caractères</small>
 
             <!-- Vérif Password -->
             <input name="verifPassword" type="password" id="defaultVerifierFormPassword" class="form-control"
                 placeholder="Vérification du mot de passe" aria-describedby="defaultRegisterFormPasswordHelpBlock">
-            <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
-            </small>
+            <small id="formInfo" class="form-text text-muted"></small>
 
             <!-- Newsletter -->
             <div class="custom-control custom-checkbox">
-                <input name="newsLetter" type="checkbox" class="custom-control-input" id="defaultRegisterFormNewsletter" <?= isset($_POST['newsLetter']) ? 'checked' : null ?>> 
+                <input name="newsLetter" type="checkbox" class="custom-control-input" id="defaultRegisterFormNewsletter"
+                    <?=isset($_POST['newsLetter']) ? 'checked' : null ?>>
 
                 <label class="custom-control-label" for="defaultRegisterFormNewsletter">Souscrire à notre Newsletter</label>
             </div>
@@ -291,15 +295,13 @@ if($mailToSend){
             <p>By clicking
                 <em>Créer son compte</em> you agree to our
                 <a href="" target="_blank">terms of service</a>
-        </form>
-    </div>
 
+
+        </form>
+
+    </div>
 </div>
 <!-- END Default form register -->
-
-
-
-
 
 <?php 
 require_once __DIR__.'/partials/footer.php';
