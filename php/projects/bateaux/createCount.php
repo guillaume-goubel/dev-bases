@@ -43,11 +43,6 @@ if(!empty($_POST)){
     $verifPassword =  $_POST['verifPassword'];
 }
 
-// $confirmNewsLetter existe seulement si la check box a été checké
-if (isset($_POST['newsLetter'])){
-    $confirmNewsLetter = $_POST['newsLetter'];
-}
-
 //Si le formualire a été envoyé ,on peut le vérifier
 if(isset($name, $email, $password, $verifPassword  )){
     $formIsSend = true;
@@ -111,8 +106,8 @@ if($formIsSend){
 if($formIsValid && $emailIsAvailable ){
 
     $insertSql = 'INSERT INTO `users`
-                  (`user_name`, `user_email`, `user_password`, `user_role`) 
-                  VALUES (:user_name, :user_email, :user_password, :user_role)' ;
+                  (`user_name`, `user_email`, `user_password`, `user_role`,  `news_letter` ) 
+                  VALUES (:user_name, :user_email, :user_password, :user_role, :news_letter)' ;
             
     $query = $db->prepare($insertSql);
 
@@ -123,7 +118,14 @@ if($formIsValid && $emailIsAvailable ){
 
     $query->bindValue(':user_password', $password, PDO::PARAM_STR);
     $query->bindValue(':user_role', $role, PDO::PARAM_STR);
-    
+
+    // si l'utilisateur a coché oui : alors il est signalé 1 dans la base de donnée (true car boolean)
+    if (isset($_POST['newsLetter'])){
+        $confirmationToNewsLetter = 1;
+    }
+
+    $query->bindValue(':news_letter', $confirmationToNewsLetter, PDO::PARAM_INT);
+
     $query->execute();
     // Fermeture de la connextion à la base de données
     $query = null;
@@ -255,12 +257,12 @@ if($mailToSend){
             <div class="form-row mb-4">
                 <div class="col">
                     <!-- First name -->
-                    <input name="name" type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="<?= $formIsSend ? $name : 'Votre pseudo' ?>">
+                    <input name="name" type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="Votre pseudo" value="<?= $formIsSend ? $name : null ?>">                                                  
                 </div>
             </div>
 
             <!-- E-mail -->
-            <input name="email" type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="<?= $formIsSend ? $email : 'Votre email' ?>">
+            <input name="email" type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="Votre mail" value="<?= $formIsSend ? $email : null ?>">         
 
             <!-- Password -->
             <input name="password" type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Mot de passe"
@@ -277,7 +279,8 @@ if($mailToSend){
 
             <!-- Newsletter -->
             <div class="custom-control custom-checkbox">
-                <input name="newsLetter" type="checkbox" class="custom-control-input" id="defaultRegisterFormNewsletter">
+                <input name="newsLetter" type="checkbox" class="custom-control-input" id="defaultRegisterFormNewsletter" <?= isset($_POST['newsLetter']) ? 'checked' : null ?>> 
+
                 <label class="custom-control-label" for="defaultRegisterFormNewsletter">Souscrire à notre Newsletter</label>
             </div>
 
