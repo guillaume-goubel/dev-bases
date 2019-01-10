@@ -25,7 +25,6 @@ $result = $query->fetch();
 // Si les parametres en get === ceux en base, c'est la même personne
 if($result['id_user'] === $idToken && $result['confirmation_token'] === $tokenSerial ){
     
-    
     $UpdateDbSql = 'UPDATE `users` SET `confirmation_token` = NULL , `confirmed_at` = NOW() 
                     WHERE id_user = :id_user';
     
@@ -35,9 +34,12 @@ if($result['id_user'] === $idToken && $result['confirmation_token'] === $tokenSe
 
     session_start(); //On demarre la session
     $_SESSION['authenticatedUserId'] = $result['id_user'];
+    $_SESSION['flash']['success'] = "Votre insciption est désormais entièrement validée";
     header('Location: http://localhost/dev-bases/php/projects/bateaux/accountUser.php'); // on redirige l'utilisateur avec en session son Id
     
     $db = null; // Fermeture de la connextion à la base de données
-} else {
-    echo '<img src="assets/images/giphy.gif">';
+
+} else { // Si il y un souci , l'utilisateur est redirigé vers la page de login
+    $_SESSION['flash']['danger'] = "Ce token n'est plus valide";
+    header('Location: http://localhost/dev-bases/php/projects/bateaux/index.php');
 }

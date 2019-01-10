@@ -34,6 +34,7 @@ $confirmationToSchow = false;
 /*******************************************************************
  * ETAPES DU FORMULAIRE
 ********************************************************************/
+// 1. Si le formulaire a été envoyé, les variables = les posts
 if(!empty($_POST)){
     $name = $_POST['name'];
     $email = $_POST['email'];
@@ -41,12 +42,13 @@ if(!empty($_POST)){
     $verifPassword =  $_POST['verifPassword'];
 }
 
-//Si le formualire a été envoyé ,on peut le vérifier
+// 2 .Si le formualire a été envoyé ,on peut le vérifier
 if(isset($name, $email, $password, $verifPassword  )){
     $formIsSend = true;
 }
 
-// Vérification de l'envoi complet du formulaire
+
+// 3. Vérification de l'envoi complet du formulaire
 if($formIsSend){
 
     $formIsValid = true;
@@ -66,6 +68,27 @@ if($formIsSend){
         $errorsArray['email'] = "Il manque l'email";  
     }
 
+    // Vérification de la disponibilité de l'email SI LE MAIL A ETE REMPLI PAR L'UTILISATEUR !
+    if(!empty($email)){
+        
+        $emailIsAvailable = true;
+    
+        $querySql = 'SELECT `user_email` FROM `users`
+                    WHERE user_email = :user_email';
+    
+        $query =  $db -> prepare($querySql);
+        $query -> bindValue(':user_email', $email, PDO::PARAM_STR );
+    
+        $query -> execute();
+        $count = $query->rowCount(); 
+        
+        if($count === 1 && !isset($errorsArray['email'])){  // Vérifie en base si mail existe deja
+        $formIsValid = false;
+        $emailIsAvailable = false;
+        $errorsArray['verifEmail'] = "L'email est deja utilisé";  
+        } 
+    }
+
     if (!filter_var($email, FILTER_VALIDATE_EMAIL) && !isset($errorsArray['email'])){
         $formIsValid = false;
         $errorsArray['emailFalse'] = "L'email n'est pas valide";  
@@ -81,29 +104,41 @@ if($formIsSend){
         $errorsArray['verifPassword'] = "Le password n'est pas identique au pass envoyé";  
     }
 
-    // Vérification de la disponibilité de l'email SI LE MAIL A ETE REMPLI PAR L'UTILISATEUR !
-    if(!empty($email)){
-        
-        $emailIsAvailable = true;
-    
-        $querySql = 'SELECT `user_email` FROM `users`
-                    WHERE user_email = :user_email';
-    
-        $query =  $db -> prepare($querySql);
-        $query -> bindValue(':user_email', $email, PDO::PARAM_STR );
-    
-        $query -> execute();
-        $count = $query->rowCount(); 
-       
-        if($count === 1 && !isset($errorsArray['email'])){  // Vérifie en base si mail existe deja
-        $formIsValid = false;
-        $emailIsAvailable = false;
-        $errorsArray['verifEmail'] = "L'email est deja utilisé";  
-        } 
-    }
+
 }
 
-// si le formulaire et Valide et si l'email est dispo alors on enregistre le user
+
+require_once __DIR__.'/recaptcha/autoload.php';
+
+if(isset($_POST)){
+
+    if(isset($_POST['g-recaptcha-response'])){
+
+        $recaptcha = new \ReCaptcha\ReCaptcha('6LdOSogUAAAAAAW7WbEfrwGxxJ-9zBlF0bW5Vlfs');
+        $resp = $recaptcha->verify($_POST['g-recaptcha-response']); //, $remoteIp en option           
+    if ($resp->isSuccess()) {
+        var_dump('Captcha valide');
+    } else {
+        $errors = $resp->getErrorCodes();
+        var_dump('Captcha invalide');
+        var_dump($errors);
+    }
+    
+    
+    } else{
+        var_dump('Captcha non rempli');
+    }
+    
+} else{
+    var_dump('Formulaire non rempli');
+}
+
+
+
+
+
+
+// 4. si le formulaire et Valide et si l'email est dispo alors on enregistre le user
 if($formIsValid && $emailIsAvailable ){
 
     $insertSql = 'INSERT INTO `users`
@@ -114,7 +149,7 @@ if($formIsValid && $emailIsAvailable ){
     
     $name = htmlspecialchars($name); // Sécurisation et hachage
     $email = htmlspecialchars($email);
-    $password = password_hash($password, PASSWORD_DEFAULT);
+    $password = password_hash($password, PASSWORD_BCRYPT);
 
     $query->bindValue(':user_name', $name, PDO::PARAM_STR);
     $query->bindValue(':user_email', $email, PDO::PARAM_STR);
@@ -136,8 +171,8 @@ if($formIsValid && $emailIsAvailable ){
     $mailToSend = true; // on peut alors envoyer le mail de confirmation  
 }
 
-// var_dump($confirmationToken);
-    
+
+// 5. Préparation de l'envoi du mail
 if($mailToSend){ //Envoi du mail vers le dernier id effectué
 
         $lastIdUser = $db->lastInsertId();
@@ -166,8 +201,6 @@ if($mailToSend){ //Envoi du mail vers le dernier id effectué
             $NewsLetterConfirmation = "Vous n'avez pas souhaité recevoir notre Newsletter";
             }
     
-            // var_dump($confirmationToken);
-
         $message='
         <html>
             <body>
@@ -204,105 +237,17 @@ if($mailToSend){ //Envoi du mail vers le dernier id effectué
             $query = null;
         }?>
 
-    <script>
-         setTimeout(function () {
-            window.location = 'index.php';
-         }, 4000);
-    </script>
+<!-- 6  Envoi vers l'index -->
+<script>
+     setTimeout(function () {
+        window.location = 'index.php';
+     }, 4000);
+</script>
+
 <?php } 
 
-?>
 
+require_once __DIR__.'/view/createAccountUserView.php';
 
-<!-- Jumbotron -->
-<div class="jumbotron text-center">
-    <h2 class="card-title h2">Création de compte</h2>
-    <div class="row d-flex justify-content-center">
-        <div class="col-xl-7 pb-2">
-            <p class="blue-text my-4 font-weight-bold">Merci de remplir le formulaire</p>
-        </div>
-    </div>
-</div>
-
-<!-- START Default form register -->
-<div class="container">
-
-    <!-- MODAL ERRORS -->
-    <div id="errorsContainer-<?= !empty($errorsArray) ? 'actived' : 'default' ?>" class="container">
-        <div class="modal-dialog modal-frame modal-bottom" role="document">
-            <div class="modal-content">
-                <div class="modal-body" id="errorsModal">
-                    <div class="row d-flex justify-content-center align-items-center">
-                        <?php foreach ($errorsArray as $key => $error) {echo $error. "<br>";} ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL CONFIRMATION INSCRIPTION -->
-    <div id="inscriptionContainer-<?= $confirmationToSchow ? 'success' : 'default' ?>" class="container">
-        <div class="modal-dialog modal-frame modal-bottom" role="document">
-            <div class="modal-content">
-                <div class="modal-body" id="inscriptionModal">
-                    <div class="row d-flex justify-content-center align-items-center">
-                        <p class="pt-3 pr-2">Votre demande a bien été prise en compte<br>
-                                             Un email vous a été envoyé. </p>
-                        <p class="pt-3 pr-2">Merci de confirmer via le lien envoyé</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- FORMULAIRE D'INSCRIPTION -->
-    <div class="row" id="registerForm">
-
-        <form class="text-center border border-light p-5" method="POST" action="#">
-
-            <!-- First name -->
-            <input name="name" type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="Votre pseudo"
-                value="<?= $formIsSend ? $name : null ?>">
-            <small id="formInfo" class="form-text text-muted"> Lettres et chiffres seulement </small>
-
-            <!-- E-mail -->
-            <input name="email" type="email" id="defaultRegisterFormEmail" class="form-control" placeholder="Votre mail"
-                value="<?= $formIsSend ? $email : null ?>">
-            <small id="formInfo" class="form-text text-muted"> Votre Email servira pour vous loger </small>   
-
-            <!-- Password -->
-            <input name="password" type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Mot de passe"
-                aria-describedby="defaultRegisterFormPasswordHelpBlock">
-            <small id="formInfo" class="form-text text-muted"> Au moins 3 caractères</small>
-
-            <!-- Vérif Password -->
-            <input name="verifPassword" type="password" id="defaultVerifierFormPassword" class="form-control"
-                placeholder="Vérification du mot de passe" aria-describedby="defaultRegisterFormPasswordHelpBlock">
-            <small id="formInfo" class="form-text text-muted"></small>
-
-            <!-- Newsletter -->
-            <div class="custom-control custom-checkbox">
-                <input name="newsLetter" type="checkbox" class="custom-control-input" id="defaultRegisterFormNewsletter"
-                    <?=isset($_POST['newsLetter']) ? 'checked' : null ?>>
-
-                <label class="custom-control-label" for="defaultRegisterFormNewsletter">Souscrire à notre Newsletter</label>
-            </div>
-
-            <!-- Sign up button -->
-            <button class="btn btn-info my-4 btn-block" type="submit">Créer son compte</button>
-
-            <!-- Terms of service -->
-            <p>By clicking
-                <em>Créer son compte</em> you agree to our
-                <a href="" target="_blank">terms of service</a>
-
-
-        </form>
-
-    </div>
-</div>
-<!-- END Default form register -->
-
-<?php 
 require_once __DIR__.'/partials/footer.php';
 ?>

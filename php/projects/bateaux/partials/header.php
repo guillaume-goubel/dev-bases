@@ -1,6 +1,12 @@
 <?php 
 require_once __DIR__.'/../config/database.php'; 
 require_once __DIR__.'/../config/functions.php';
+
+// Si il n'y a pas de dession --> créer en une (car le session start est présent dans quelques script et il y aurait doublon)
+if(session_status() == PHP_SESSION_NONE ){
+    session_start();
+}
+
 ?>
 
 <!doctype html>
@@ -18,15 +24,11 @@ require_once __DIR__.'/../config/functions.php';
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/styles/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/styles/css/mdb.css" >
+    <link rel="stylesheet" href="assets/styles/css/mdb.css">
     <link rel="stylesheet" href="assets/styles/css/styles.min.css">
-
-    <!-- Scrpit recaptcha -->
-    <script src='https://www.google.com/recaptcha/api.js'></script> 
 </head>
 
 <body>
-
     <header>
         <div class="collapse bg-dark" id="navbarHeader">
             <div class="container">
@@ -55,3 +57,20 @@ require_once __DIR__.'/../config/functions.php';
             </div>
         </div>
     </header>
+
+    <!-- MESSAGE FLASH -->
+    <div id="flashContainer" class="container">
+
+        <?php if(isset($_SESSION['flash'])) { 
+
+        foreach($_SESSION['flash'] as $type => $message){ ?>
+
+        <div id="flashMessage" class="alert alert-<?= $type ?>" role="alert">
+             <?= $message ?>
+        </div>
+
+        <?php } }
+        unset($_SESSION['flash']); // LE message est ensuite détruit
+        ?>
+
+    </div>
