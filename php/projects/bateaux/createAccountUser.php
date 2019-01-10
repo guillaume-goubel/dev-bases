@@ -29,7 +29,9 @@ $emailIsAvailable = false;
 $mailToSend = false;
 //message de confirmation affiché à utilisateur , si vrai , on lui indique le succe de son inscritopn
 $confirmationToSchow = false;
-//variable captcha
+//variable captcha envoyé
+$recaptchaSend = false;
+//variable captcha valide
 $recaptchaValid = false;
 
 
@@ -119,18 +121,24 @@ if(isset($_POST)){
         $recaptcha = new \ReCaptcha\ReCaptcha('6LdOSogUAAAAAAW7WbEfrwGxxJ-9zBlF0bW5Vlfs');
         $resp = $recaptcha->verify($_POST['g-recaptcha-response']); //, $remoteIp en option           
     if ($resp->isSuccess()) {
-        var_dump('Captcha valide');
         $recaptchaValid = true;
+        var_dump($recaptchaValid);
+        var_dump('Captcha valide');
+        
+
     } else {
         $errors = $resp->getErrorCodes();
+        $recaptchaValid = false;
         var_dump($recaptchaValid);
-        var_dump($errors);
+        var_dump('Captcha non valide');
+        $errorsArray['CaptchaNoValid'] = "Le captcha n'est pas valide";  
     }
     
     } else{
-        var_dump($recaptchaValid);
-        $recaptchaValid = false;
-        var_dump('Captcha non rempli');
+        var_dump($recaptchaSend);
+        $recaptchaSend = false;
+        var_dump('Captcha non envoyé');
+        $errorsArray['CaptchanoSend'] = "Le captcha n'est pas envoyé";  
     }
     
 } else{
@@ -138,12 +146,8 @@ if(isset($_POST)){
 }
 
 
-
-
-
-
 // 4. si le formulaire et Valide et si l'email est dispo alors on enregistre le user
-if($formIsValid && $emailIsAvailable ){
+if($formIsValid && $emailIsAvailable  ){   // && $recaptchaValid
 
     $insertSql = 'INSERT INTO `users`
                   (`user_name`, `user_email`, `user_password`, `user_role`,  `news_letter`, `date_creation` , `confirmation_token` ) 

@@ -28,11 +28,6 @@
     <div class="row" id="registerForm">
 
         <form class="text-center border border-light p-5" method="POST" action="#">
-            
-            <!-- Recpatcha -->
-            <div class="g-recaptcha" data-sitekey="6LdOSogUAAAAADZjoXxsS5pejF-ZogcLZ7h7IS8P"></div>
-
-            <hr>
 
             <!-- First name -->
             <input name="name" type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="Votre pseudo"
@@ -42,7 +37,7 @@
             <!-- E-mail -->
             <input name="email" type="email" id="defaultRegisterFormEmail" class="form-control" placeholder="Votre mail"
                 value="<?= $formIsSend ? $email : null ?>">
-            <small id="formInfo" class="form-text text-muted"> Votre Email servira pour vous loger </small>   
+            <small id="formInfo" class="form-text text-muted"> Votre Email servira pour vous loger </small>
 
             <!-- Password -->
             <input name="password" type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Mot de passe"
@@ -61,6 +56,11 @@
 
                 <label class="custom-control-label" for="defaultRegisterFormNewsletter">Souscrire à notre Newsletter</label>
             </div>
+
+            <hr>
+
+            <!-- Recpatcha -->
+            <div class="g-recaptcha" data-sitekey="6LdOSogUAAAAADZjoXxsS5pejF-ZogcLZ7h7IS8P"></div>
 
             <!-- Sign up button -->
             <button class="btn btn-info my-4 btn-block" type="submit">Créer son compte</button>
