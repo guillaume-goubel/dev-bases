@@ -29,7 +29,7 @@ $emailIsAvailable = false;
 $mailToSend = false;
 //message de confirmation affiché à utilisateur , si vrai , on lui indique le succe de son inscritopn
 $confirmationToSchow = false;
-
+//variable captcha
 $recaptchaValid = false;
 
 
@@ -67,7 +67,7 @@ if($formIsSend){
 
     if(empty($email)){
         $formIsValid = false;
-        $errorsArray['email'] = "Il manque l'email";  
+        $errorsArray['emailLack'] = "Il manque l'email";  
     }
 
     // Vérification de la disponibilité de l'email SI LE MAIL A ETE REMPLI PAR L'UTILISATEUR !
@@ -84,7 +84,7 @@ if($formIsSend){
         $query -> execute();
         $count = $query->rowCount(); 
         
-        if($count === 1 && !isset($errorsArray['email'])){  // Vérifie en base si mail existe deja
+        if($count === 1 && !isset($errorsArray['emailLack'])){  // Vérifie en base si mail existe deja
         $formIsValid = false;
         $emailIsAvailable = false;
         $errorsArray['verifEmail'] = "L'email est deja utilisé";  
