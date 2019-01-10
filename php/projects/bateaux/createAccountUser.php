@@ -30,6 +30,8 @@ $mailToSend = false;
 //message de confirmation affiché à utilisateur , si vrai , on lui indique le succe de son inscritopn
 $confirmationToSchow = false;
 
+$recaptchaValid = false;
+
 
 /*******************************************************************
  * ETAPES DU FORMULAIRE
@@ -120,12 +122,14 @@ if(isset($_POST)){
         var_dump('Captcha valide');
     } else {
         $errors = $resp->getErrorCodes();
-        var_dump('Captcha invalide');
+        $recaptchaValid = true;
+        var_dump($recaptchaValid);
         var_dump($errors);
     }
     
-    
     } else{
+        var_dump($recaptchaValid);
+        $recaptchaValid = false;
         var_dump('Captcha non rempli');
     }
     
@@ -232,19 +236,20 @@ if($mailToSend){ //Envoi du mail vers le dernier id effectué
 
         // on peut envoyer le message de confirmation si le mail a bien été envoyé
         if($SendEmailOK){
-            $confirmationToSchow = true;
+
+            //normalement session lancée dans le header mais si non en lancer une
+            if(session_status() == PHP_SESSION_NONE ){
+                session_start();
+            }
+            $_SESSION['waitingForValidation'] = true;
+            $_SESSION['flash']['warning'] = "Votre inscription doit être maintenant validée par mail";
+            header('Location: http://localhost/dev-bases/php/projects/bateaux/index.php'); // on redirige l'utilisateur avec en session son Id
+            exit();
+
             // Fermeture de la connextion à la base de données
             $query = null;
-        }?>
-
-<!-- 6  Envoi vers l'index -->
-<script>
-     setTimeout(function () {
-        window.location = 'index.php';
-     }, 4000);
-</script>
-
-<?php } 
+        }
+} 
 
 
 require_once __DIR__.'/view/createAccountUserView.php';

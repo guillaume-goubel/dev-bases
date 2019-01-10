@@ -25,6 +25,7 @@ $result = $query->fetch();
 // Si les parametres en get === ceux en base, c'est la même personne
 if($result['id_user'] === $idToken && $result['confirmation_token'] === $tokenSerial ){
     
+    // ici on effece le token et on rajoute la date d'authnetification : le user est authentifié
     $UpdateDbSql = 'UPDATE `users` SET `confirmation_token` = NULL , `confirmed_at` = NOW() 
                     WHERE id_user = :id_user';
     
@@ -34,7 +35,8 @@ if($result['id_user'] === $idToken && $result['confirmation_token'] === $tokenSe
 
     session_start(); //On demarre la session
     $_SESSION['authenticatedUserId'] = $result['id_user'];
-    $_SESSION['flash']['success'] = "Votre insciption est désormais entièrement validée";
+    $_SESSION['waitingForValidation'] = false;
+    $_SESSION['flash']['success'] = "Votre inscription est désormais entièrement validée";
     header('Location: http://localhost/dev-bases/php/projects/bateaux/accountUser.php'); // on redirige l'utilisateur avec en session son Id
     
     $db = null; // Fermeture de la connextion à la base de données

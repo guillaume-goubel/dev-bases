@@ -14,5 +14,7 @@ e: port localhost : 1080
 2 : modifier le path php via : https://www.forevolve.com/en/articles/2016/10/27/how-to-add-your-php-runtime-directory-to-your-windows-10-path-environment-variable/
 
 3. reCAPCHAT
-Librairie PHP : https://github.com/google/recaptcha
 
+Obtenir la clé sur google captcha
+Librairie PHP : https://github.com/google/recaptcha
+Enlever la ligne : >$recptcha -> setExpectedHostname('recaptcha-demo.appspot.com') et faire directement : $recptcha -> verify($gRecaptchaResponse);

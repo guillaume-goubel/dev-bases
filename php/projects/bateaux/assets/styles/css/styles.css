@@ -1,5 +1,6 @@
 html {
     box-sizing: border-box;
+    color: blue;
 }
 
 /*CREATE ACCOUNT */
@@ -68,7 +69,8 @@ html {
 
 #flashContainer{
     position: fixed;
-    top: 4rem;
+    top: 7rem;
     z-index: 1;
-    width:12rem;
+    width:31rem;
+    left: 5rem;
 }

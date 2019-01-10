@@ -9,6 +9,8 @@ function str_random($length){
 
 }
 
+
+
 //For GetUserInfo ( An authenticatedc User)
 function getUserAuthenticated($userId){
 
@@ -19,7 +21,6 @@ function getUserAuthenticated($userId){
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE , PDO::FETCH_ASSOC); 
         $db->setAttribute(PDO::ATTR_ERRMODE , PDO::ERRMODE_WARNING); 
-    
     } 
      
      catch(Exception $e){
@@ -44,6 +45,14 @@ function getUserAuthenticated($userId){
 
     return $result = $query->fetch();
     $db = NULL;
+}
+
+
+function frenchDate(){
+    
+    date_default_timezone_set('Europe/Paris'); // précision du fuseau horaire de PAris
+    $usDate  = new \Datetime();
+    return $frenchDate = date("d/m/Y H:i:s");
 }
 
 

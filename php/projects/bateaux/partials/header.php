@@ -7,6 +7,15 @@ if(session_status() == PHP_SESSION_NONE ){
     session_start();
 }
 
+// Si il n'y a pas de de session d'un user authentifié  --> créer en une (car le session start est présent dans quelques script et il y aurait doublon)
+if(!empty($_SESSION['authenticatedUserId'])){
+    $userId = $_SESSION['authenticatedUserId']; // on récupère l'id de la session
+    $userInfo = getUserAuthenticated($userId); // on récupère le return de la fonction avec l'id de la session via la variable $userInfo  
+    // var_dump($userInfo);  
+}
+
+
+
 ?>
 
 <!doctype html>
@@ -14,7 +23,7 @@ if(session_status() == PHP_SESSION_NONE ){
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -25,7 +34,7 @@ if(session_status() == PHP_SESSION_NONE ){
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/styles/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/styles/css/mdb.css">
-    <link rel="stylesheet" href="assets/styles/css/styles.min.css">
+    <link rel="stylesheet" href="assets/styles/css/styles.css">
 </head>
 
 <body>
@@ -50,6 +59,14 @@ if(session_status() == PHP_SESSION_NONE ){
                 <a href="index.php" class="navbar-brand d-flex align-items-center">
                     <strong>Accueil</strong>
                 </a>
+
+                <!-- Si le user est connecté , alors on affiche son nom et la date de connexion -->
+                <?php if(isset($userInfo['user_name'])): ?>
+                    <span href="index.php" class="navbar-brand d-flex align-items-center"> 
+                        Bienvenue : <?= $userInfo['user_name'] ?>
+                    </span>
+                <?php endif; ?>
+ 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
                     aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

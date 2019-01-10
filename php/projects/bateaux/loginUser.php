@@ -15,8 +15,12 @@ $formIsSend = false;
 $errorsArray = [];
 //vérification formulaire complet avant enregistrement et les vérifications ci-dessous
 $formIsValid = false;
+
+//Vérification du pass et mail
+$passIsValid = false;
 //Vérification info et password
-$LogIsValid = false;
+$logIsValid = false;
+
 
 /****************************************
  * ETAPES DU FORMULAIRE
@@ -30,7 +34,6 @@ if(!empty($_POST)){
 if(isset($email, $password)){
     $formIsSend = true;
 }
-
 
 if($formIsSend){
 
@@ -59,33 +62,40 @@ if($formIsValid){
     $query -> bindValue(':user_email', $email, PDO::PARAM_STR );
     $query -> execute();
     $result = $query->fetch();
+    var_dump($result);
 
-    // 1 : On vérifie si la date de validation est en base (date crée lor de l'authentification via le token)
-    if(!empty($result['confirmed_at'])){
-        // 2 : On  vérification entre les deux passwords via l'email envoyé
-        $passVerify = password_verify($password, $result['user_password']); // renvoi true ou false
-        $db = NULL;
-    } else {
-        $_SESSION['flash']['danger'] = "Votre inscription n'a pas été validée via votre mail !";
-        header('Location: http://localhost/dev-bases/php/projects/bateaux/loginUser.php');
+    // 1 on vérifie le password et le mail
+    $passVerify = password_verify($password, $result['user_password']); // renvoi un boolean 
 
-    }
-
-    if($passVerify){ // Si true alors le log est valide
-        $LogIsValid = true;
+    if($passVerify){ 
+        $passIsValid = true;
     } else {
         $_SESSION['flash']['danger'] = "Le mail ou mot de passe n'est pas correct !";
         header('Location: http://localhost/dev-bases/php/projects/bateaux/loginUser.php');
 
     }
-}
 
-if($LogIsValid){
-    session_start();
-    $_SESSION['authenticatedUserId'] = $result['id_user'];
-    $_SESSION['flash']['success'] = "Vous êtes connecté ";
-    header('Location: http://localhost/dev-bases/php/projects/bateaux/index.php');
+    // 2 on vérifie si le user et en attente d'une validation par mail
+    if($passIsValid){ 
 
+        if(empty($result['confirmed_at'])){ //si oui
+            $_SESSION['flash']['danger'] = "Votre inscription n'a pas été validée via votre mail !";         
+            header('Location: http://localhost/dev-bases/php/projects/bateaux/index.php');
+        }
+
+        if(!empty($result['confirmed_at'])){ //si non
+            $logIsValid = true;
+        }
+    }
+
+    // 3 on créé une session
+    if($logIsValid){
+  
+        $_SESSION['authenticatedUserId'] = $result['id_user'];
+        $_SESSION['flash']['success'] = "Vous êtes connecté ";
+        header('Location: http://localhost/dev-bases/php/projects/bateaux/index.php');
+        
+    }
 }
 
 

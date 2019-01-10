@@ -8,9 +8,7 @@ require_once __DIR__.'/partials/header.php';
         <div class="row d-flex justify-content-center">
             <div class="col-xl-7 pb-2">
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga aliquid dolorem ea
-                    distinctio exercitationem delectus qui, quas eum architecto, amet quasi accusantium, fugit
-                    consequatur ducimus obcaecati numquam molestias hic itaque accusantium doloremque laudantium, totam
-                    rem aperiam.</p>
+                    distinctio exercitationem delectus qui.</p>
             </div>
         </div>
 
@@ -25,6 +23,7 @@ require_once __DIR__.'/partials/header.php';
                <a href="accountUser.php"><button type="button" class="btn btn-blue waves-effect">Accès au compte</button></a>
                <a href="disconnectUser.php"><button type="button" class="btn btn-red waves-effect">Se deconnecter</button></a>
             </div>
+
         <!-- Si session authentifiée n'existe pas  -->
         <?php else: ?>
 
