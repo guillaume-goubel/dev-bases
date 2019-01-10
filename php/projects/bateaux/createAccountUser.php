@@ -120,9 +120,9 @@ if(isset($_POST)){
         $resp = $recaptcha->verify($_POST['g-recaptcha-response']); //, $remoteIp en option           
     if ($resp->isSuccess()) {
         var_dump('Captcha valide');
+        $recaptchaValid = true;
     } else {
         $errors = $resp->getErrorCodes();
-        $recaptchaValid = true;
         var_dump($recaptchaValid);
         var_dump($errors);
     }

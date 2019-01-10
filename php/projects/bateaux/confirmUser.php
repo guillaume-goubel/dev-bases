@@ -40,8 +40,10 @@ if($result['id_user'] === $idToken && $result['confirmation_token'] === $tokenSe
     header('Location: http://localhost/dev-bases/php/projects/bateaux/accountUser.php'); // on redirige l'utilisateur avec en session son Id
     
     $db = null; // Fermeture de la connextion à la base de données
+    exit();
 
 } else { // Si il y un souci , l'utilisateur est redirigé vers la page de login
     $_SESSION['flash']['danger'] = "Ce token n'est plus valide";
     header('Location: http://localhost/dev-bases/php/projects/bateaux/index.php');
+    exit();
 }
