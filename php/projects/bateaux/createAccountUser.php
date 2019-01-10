@@ -5,7 +5,7 @@ require_once __DIR__.'/partials/header.php';
  * DECLARATION DES VARIABLES
  *****************************************/
 // variable dans le formulaire d'inscription à null dès le lancement du script
-$name = $email = $password = $verifPassword = $confirmationToken = null;
+$name = $email = $password = $verifPassword = $confirmationToken = $captcha = null;
 // l'abonnement est par défaut 0 , soit faux (boolean). L'utilisateur doit cocher pour accepter (et le faire passer en valuer1)
 $confirmationToNewsLetter = 0;
 // le role par défaut des users (role admin est à créer dans la Bdd)
@@ -14,10 +14,11 @@ $role = "user";
 date_default_timezone_set('Europe/Paris'); // précision du fuseau horaire de PAris
 $dateCreation_dateFormat = new \Datetime();
 
+
 /*******************************************************************
  * CHECK DES ETAPES DE LA VERIFICATION ET VALIDATION DU FORMULAIRE
 ********************************************************************/
-//vérification si fortmulaire envoyé
+//vérification si formulaire envoyé
 $formIsSend = false;
 //Tableau d'erreurs lors de la vérification du formulaire
 $errorsArray = [];
@@ -27,10 +28,8 @@ $formIsValid = false;
 $emailIsAvailable = false;
 //envoi mail confirmation de création de compte à utilisateur
 $mailToSend = false;
-//message de confirmation affiché à utilisateur , si vrai , on lui indique le succe de son inscritopn
-$confirmationToSchow = false;
 //variable captcha envoyé
-$recaptchaSend = false;
+$recaptchaSend = false; 
 //variable captcha valide
 $recaptchaValid = false;
 
@@ -44,10 +43,12 @@ if(!empty($_POST)){
     $email = $_POST['email'];
     $password = $_POST['password'];
     $verifPassword =  $_POST['verifPassword'];
+    $captcha = $_POST['captcha'];
 }
 
+
 // 2 .Si le formualire a été envoyé ,on peut le vérifier
-if(isset($name, $email, $password, $verifPassword  )){
+if(isset($name, $email, $password, $verifPassword, $captcha )){
     $formIsSend = true;
 }
 
@@ -86,7 +87,7 @@ if($formIsSend){
         $query -> execute();
         $count = $query->rowCount(); 
         
-        if($count === 1 && !isset($errorsArray['emailLack'])){  // Vérifie en base si mail existe deja
+        if($count === 1 && !isset($errorsArray['emailLack'])){  // Vérifie en base si mail existe deja , si 1 oui
         $formIsValid = false;
         $emailIsAvailable = false;
         $errorsArray['verifEmail'] = "L'email est deja utilisé";  
@@ -108,46 +109,53 @@ if($formIsSend){
         $errorsArray['verifPassword'] = "Le password n'est pas identique au pass envoyé";  
     }
 
+    if(!preg_match(" /^[0-9]{4}$/ ", $captcha)) {
+        $formIsValid = false;
+        $errorsArray['verifCaptcha'] = "Le code doit comporter 4 chiffres";  
+    }
 
+    if($captcha != $_SESSION['captcha'] && !isset($captcha)){
+        $formIsValid = false;
+        $errorsArray['validCaptcha'] = "Les codes ne sont pas identiques";  
+    }
 }
 
+// require_once __DIR__.'/recaptcha/autoload.php';
 
-require_once __DIR__.'/recaptcha/autoload.php';
+// if(isset($_POST)){
 
-if(isset($_POST)){
+//     if(isset($_POST['g-recaptcha-response'])){
 
-    if(isset($_POST['g-recaptcha-response'])){
-
-        $recaptcha = new \ReCaptcha\ReCaptcha('6LdOSogUAAAAAAW7WbEfrwGxxJ-9zBlF0bW5Vlfs');
-        $resp = $recaptcha->verify($_POST['g-recaptcha-response']); //, $remoteIp en option           
-    if ($resp->isSuccess()) {
-        $recaptchaValid = true;
-        var_dump($recaptchaValid);
-        var_dump('Captcha valide');
+//         $recaptcha = new \ReCaptcha\ReCaptcha('6LdOSogUAAAAAAW7WbEfrwGxxJ-9zBlF0bW5Vlfs');
+//         $resp = $recaptcha->verify($_POST['g-recaptcha-response']); //, $remoteIp en option           
+//     if ($resp->isSuccess()) {
+//         $recaptchaValid = true;
+//         var_dump($recaptchaValid);
+//         var_dump('Captcha valide');
         
 
-    } else {
-        $errors = $resp->getErrorCodes();
-        $recaptchaValid = false;
-        var_dump($recaptchaValid);
-        var_dump('Captcha non valide');
-        $errorsArray['CaptchaNoValid'] = "Le captcha n'est pas valide";  
-    }
+//     } else {
+//         $errors = $resp->getErrorCodes();
+//         $recaptchaValid = false;
+//         var_dump($recaptchaValid);
+//         var_dump('Captcha non valide');
+//         $errorsArray['CaptchaNoValid'] = "Le captcha n'est pas valide";  
+//     }
     
-    } else{
-        var_dump($recaptchaSend);
-        $recaptchaSend = false;
-        var_dump('Captcha non envoyé');
-        $errorsArray['CaptchanoSend'] = "Le captcha n'est pas envoyé";  
-    }
+//     } else{
+//         var_dump($recaptchaSend);
+//         $recaptchaSend = false;
+//         var_dump('Captcha non envoyé');
+//         $errorsArray['CaptchanoSend'] = "Le captcha n'est pas envoyé";  
+//     }
     
-} else{
-    var_dump('Formulaire non rempli');
-}
+// } else{
+//     var_dump('Formulaire non rempli');
+// }
 
 
 // 4. si le formulaire et Valide et si l'email est dispo alors on enregistre le user
-if($formIsValid && $emailIsAvailable  ){   // && $recaptchaValid
+if($formIsValid && $emailIsAvailable){   // && $recaptchaValid
 
     $insertSql = 'INSERT INTO `users`
                   (`user_name`, `user_email`, `user_password`, `user_role`,  `news_letter`, `date_creation` , `confirmation_token` ) 

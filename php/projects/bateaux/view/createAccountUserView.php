@@ -27,26 +27,26 @@
     <!-- FORMULAIRE D'INSCRIPTION -->
     <div class="row" id="registerForm">
 
-        <form class="text-center border border-light p-5" method="POST" action="#">
+        <form class="text-center border border-light p-5 needs-validation" method="POST" action="#" validate>
 
             <!-- First name -->
             <input name="name" type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="Votre pseudo"
-                value="<?= $formIsSend ? $name : null ?>">
+                value="<?= $formIsSend ? $name : null ?>" >
             <small id="formInfo" class="form-text text-muted"> Lettres et chiffres seulement </small>
 
             <!-- E-mail -->
             <input name="email" type="email" id="defaultRegisterFormEmail" class="form-control" placeholder="Votre mail"
-                value="<?= $formIsSend ? $email : null ?>">
+                value="<?= $formIsSend ? $email : null ?>" >
             <small id="formInfo" class="form-text text-muted"> Votre Email servira pour vous loger </small>
 
             <!-- Password -->
             <input name="password" type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Mot de passe"
-                aria-describedby="defaultRegisterFormPasswordHelpBlock">
+                aria-describedby="defaultRegisterFormPasswordHelpBlock"  >
             <small id="formInfo" class="form-text text-muted"> Au moins 3 caractères</small>
 
             <!-- Vérif Password -->
             <input name="verifPassword" type="password" id="defaultVerifierFormPassword" class="form-control"
-                placeholder="Vérification du mot de passe" aria-describedby="defaultRegisterFormPasswordHelpBlock">
+                placeholder="Vérification du mot de passe" aria-describedby="defaultRegisterFormPasswordHelpBlock" >
             <small id="formInfo" class="form-text text-muted"></small>
 
             <!-- Newsletter -->
@@ -54,16 +54,24 @@
                 <input name="newsLetter" type="checkbox" class="custom-control-input" id="defaultRegisterFormNewsletter"
                     <?=isset($_POST['newsLetter']) ? 'checked' : null ?>>
 
-                <label class="custom-control-label" for="defaultRegisterFormNewsletter">Souscrire à notre Newsletter</label>
+                <label class="custom-control-label" for="defaultRegisterFormNewsletter">Souscrire à notre Newsletter ?</label>
             </div>
 
+            <br>
             <hr>
 
-            <!-- Recpatcha -->
-            <div class="g-recaptcha" data-sitekey="6LdOSogUAAAAADZjoXxsS5pejF-ZogcLZ7h7IS8P"></div>
+            <!-- Captcha MY -->
+            <div>
+                <img src="captcha.php" style="margin-bottom:5px;" alt="">
+                <input maxlength="4"  name="captcha" type="text" class="form-control" placeholder="Mettre le code de validation ici" > 
+                <small id="formInfo" class="form-text text-muted"> Code à 4 chiffres anti-spam </small>
+            </div>
+
+            <!-- Recpatcha GOOGLE -->
+            <!-- <div class="g-recaptcha" data-sitekey="6LdOSogUAAAAADZjoXxsS5pejF-ZogcLZ7h7IS8P"></div> -->
 
             <!-- Sign up button -->
-            <button class="btn btn-info my-4 btn-block" type="submit">Créer son compte</button>
+            <button class="btn btn-info" type="submit" style="margin-bottom:20px;">Créer son compte</button>
 
             <!-- Terms of service -->
             <p>By clicking
