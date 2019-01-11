@@ -18,3 +18,21 @@ e: port localhost : 1080
 Obtenir la clé sur google captcha
 Librairie PHP : https://github.com/google/recaptcha
 Enlever la ligne : >$recptcha -> setExpectedHostname('recaptcha-demo.appspot.com') et faire directement : $recptcha -> verify($gRecaptchaResponse);
+
+
+
+4.VS CODE
+EXTENSIONS :
+- Auto Close Tag
+- Auto Rename Tag
+- Beautify
+- Dark-Dracula theme
+- DotENV
+- Dracula Official
+- PHP IntelliSense : 
+    path:{
+    "php.validate.executablePath": "C:\\wamp64\\bin\\php\\php7.0.4\\php.exe",
+    "php.executablePath": "C:\\wamp64\\bin\\php\\php7.0.4\\php.exe"
+}
+
+

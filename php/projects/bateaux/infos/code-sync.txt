@@ -1,0 +1,50 @@
+CODE SETTINGS SYNC UPLOAD SUMMARY
+Version: 3.2.4
+--------------------
+GitHub Gist: f626ff488801701d8eac9c4d2bbed2ab
+GitHub Gist Type: Secret
+
+Restarting Visual Studio Code may be required to apply color and file icon theme.
+--------------------
+Files Uploaded:
+  extensions.json > extensions.json
+  keybindings.json > keybindings.json
+  locale.json > locale.json
+  settings.json > settings.json
+
+Extensions Ignored:
+  No extensions ignored.
+
+Extensions Removed:
+  No extensions removed.
+
+Extensions Added:
+  auto-close-tag v0.5.6
+  auto-rename-tag v0.0.15
+  beautify v1.4.7
+  better-comments v2.0.3
+  code-settings-sync v3.2.4
+  dotenv v1.0.1
+  jquerysnippets v0.0.1
+  php-class-helper v0.1.8
+  php-intellisense v2.3.10
+  php-namespace-resolver v1.1.0
+  RelativePath v1.4.0
+  Theme-Dark-Dracula v0.0.2
+  theme-dracula v2.15.0
+  twig-language-2 v0.4.4
+  vscode-html-css v0.2.0
+  vscode-icons v8.0.0
+  vscode-language-pack-fr v1.30.2
+  vscode-php-getters-setters v1.2.3
+  vscode-todo-highlight v1.0.4
+  vscode-twig-pack v1.0.0
+--------------------
+Done.
+
+
+download settings : 
+> Sync: Download Settings
+
+path :
+code-sync
