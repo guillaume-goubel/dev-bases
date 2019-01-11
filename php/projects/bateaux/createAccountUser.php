@@ -256,10 +256,11 @@ if($mailToSend){ //Envoi du mail vers le dernier id effectué
             $_SESSION['waitingForValidation'] = true;
             $_SESSION['flash']['warning'] = "Votre inscription doit être maintenant validée par mail";
             header('Location: http://localhost/dev-bases/php/projects/bateaux/index.php'); // on redirige l'utilisateur avec en session son Id
+            // Fermeture de la connextion à la base de données
+            $db = null;
             exit();
 
-            // Fermeture de la connextion à la base de données
-            $query = null;
+
         }
 } 
 

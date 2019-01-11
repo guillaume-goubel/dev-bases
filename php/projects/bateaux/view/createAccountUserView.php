@@ -74,9 +74,9 @@
             <button class="btn btn-info" type="submit" style="margin-bottom:20px;">Créer son compte</button>
 
             <!-- Terms of service -->
-            <p>By clicking
-                <em>Créer son compte</em> you agree to our
-                <a href="" target="_blank">terms of service</a>
+            <p>En validant vous
+                <em>Créer un compte</em> en accord avec les 
+                <a href="" target="_blank">termes du service</a></p>
         </form>
     </div>
 </div>

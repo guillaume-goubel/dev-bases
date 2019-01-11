@@ -37,8 +37,7 @@ if($result['id_user'] === $idToken && $result['confirmation_token'] === $tokenSe
     $_SESSION['authenticatedUserId'] = $result['id_user'];
     $_SESSION['waitingForValidation'] = false;
     $_SESSION['flash']['success'] = "Votre inscription est désormais entièrement validée";
-    header('Location: http://localhost/dev-bases/php/projects/bateaux/accountUser.php'); // on redirige l'utilisateur avec en session son Id
-    
+    header('Location: http://localhost/dev-bases/php/projects/bateaux/accountUser.php'); // on redirige l'utilisateur avec en session son Id   
     $db = null; // Fermeture de la connextion à la base de données
     exit();
 

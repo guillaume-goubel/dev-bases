@@ -1,7 +1,22 @@
+/* ALL */
 html {
     box-sizing: border-box;
     color: blue;
 }
+
+/* HEADER :  MODAL ERRORS */
+#flashMessage{
+    text-align: center;  
+}
+
+#flashContainer{
+    position: fixed;
+    top: 7rem;
+    z-index: 1;
+    width:31rem;
+    left: 5rem;
+}
+
 
 /*CREATE ACCOUNT */
 .offset-md-1{
@@ -16,6 +31,7 @@ html {
     align-items: center;
     justify-content: center;
 }
+
 
 /* MODAL INSCRIPTION */
 #inscriptionContainer-success{
@@ -62,15 +78,3 @@ html {
 }
 
 
-/* Flash message */
-#flashMessage{
-    text-align: center;  
-}
-
-#flashContainer{
-    position: fixed;
-    top: 7rem;
-    z-index: 1;
-    width:31rem;
-    left: 5rem;
-}

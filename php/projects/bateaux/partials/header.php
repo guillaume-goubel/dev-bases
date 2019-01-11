@@ -11,7 +11,7 @@ if(session_status() == PHP_SESSION_NONE ){
 if(!empty($_SESSION['authenticatedUserId'])){
     $userId = $_SESSION['authenticatedUserId']; // on récupère l'id de la session
     $userInfo = getUserAuthenticated($userId); // on récupère le return de la fonction avec l'id de la session via la variable $userInfo  
-    var_dump($userInfo);  
+    // var_dump($userInfo);  
 }
 
 ?>
@@ -85,7 +85,7 @@ if(!empty($_SESSION['authenticatedUserId'])){
         </div>
 
         <?php } }
-        unset($_SESSION['flash']); // LE message est ensuite détruit
+        unset($_SESSION['flash']); // Le message est ensuite détruit - lors du rafraichissement il disparait
         ?>
 
     </div>
