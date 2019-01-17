@@ -2,16 +2,23 @@
 require_once __DIR__.'/../config/database.php'; 
 require_once __DIR__.'/../config/functions.php';
 
-// Si il n'y a pas de dession --> créer en une (car le session start est présent dans quelques script et il y aurait doublon)
+if(isset($_COOKIE['userId'])){
+
+var_dump($_COOKIE['email']);
+var_dump($_COOKIE['password']);
+var_dump($_COOKIE['userId']);
+
+}
+
+// Si il n'y a pas de de session --> créer en une (car le session start est présent dans quelques script et il y aurait doublon)
 if(session_status() == PHP_SESSION_NONE ){
     session_start();
 }
 
-// Si il n'y a pas de de session d'un user authentifié  --> créer en une (car le session start est présent dans quelques script et il y aurait doublon)
-if(!empty($_SESSION['authenticatedUserId'])){
+if(isset($_SESSION['authenticatedUserId'])){
     $userId = $_SESSION['authenticatedUserId']; // on récupère l'id de la session
     $userInfo = getUserAuthenticated($userId); // on récupère le return de la fonction avec l'id de la session via la variable $userInfo  
-    // var_dump($userInfo);  
+    var_dump($userInfo);  
 }
 
 ?>
@@ -32,7 +39,9 @@ if(!empty($_SESSION['authenticatedUserId'])){
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/styles/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/styles/css/mdb.css">
-    <link rel="stylesheet" href="assets/styles/css/styles.css">
+    <link rel="stylesheet" href="assets/styles/css/styles.css"> 
+
+
 </head>
 
 <body>

@@ -67,9 +67,6 @@
                 <small id="formInfo" class="form-text text-muted"> Code à 4 chiffres anti-spam </small>
             </div>
 
-            <!-- Recpatcha GOOGLE -->
-            <!-- <div class="g-recaptcha" data-sitekey="6LdOSogUAAAAADZjoXxsS5pejF-ZogcLZ7h7IS8P"></div> -->
-
             <!-- Sign up button -->
             <button class="btn btn-info" type="submit" style="margin-bottom:20px;">Créer son compte</button>
 

@@ -19,7 +19,7 @@ $formIsValid = false;
 $passIsValid = false;
 //Vérification info et password
 $logIsValid = false;
-//A défaut les cookies sont désactivés
+//A défaut les cookies sont désactivés.le user active ou non via la checkbox se souvenir de moi
 $CookieIsValid = false;
 
 
@@ -61,11 +61,11 @@ if($formIsSend){
 
 }
 
-var_dump($CookieIsValid);
-
 if($formIsValid){
 
-    $query =  $db -> prepare('SELECT * FROM `users` WHERE `user_email` = :user_email');
+    $loginUserSQL = 'SELECT * FROM `users` WHERE `user_email` = :user_email';
+
+    $query =  $db -> prepare($loginUserSQL);
     $query -> bindValue(':user_email', $email, PDO::PARAM_STR );
     $query -> execute();
     $result = $query->fetch();
@@ -93,14 +93,16 @@ if($formIsValid){
         }
     }
 
-    // 3 on créé une session et éventullement les cookies
+    // 3 on créé une session et éventuellement les cookies
     if($logIsValid){
 
         //les cookies
         if($CookieIsValid){
+            setcookie('userId', $result['id_user'], time()+365*24*3600, null,null,false,true);
             setcookie('email', $result['user_email'], time()+365*24*3600, null,null,false,true);
             setcookie('password', $result['user_password'], time()+365*24*3600, null,null,false,true);
         }
+
         //les sessions
         $_SESSION['authenticatedUserId'] = $result['id_user'];
         $_SESSION['flash']['success'] = "Vous êtes connecté ";

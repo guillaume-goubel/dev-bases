@@ -120,40 +120,6 @@ if($formIsSend){
     }
 }
 
-// require_once __DIR__.'/recaptcha/autoload.php';
-
-// if(isset($_POST)){
-
-//     if(isset($_POST['g-recaptcha-response'])){
-
-//         $recaptcha = new \ReCaptcha\ReCaptcha('6LdOSogUAAAAAAW7WbEfrwGxxJ-9zBlF0bW5Vlfs');
-//         $resp = $recaptcha->verify($_POST['g-recaptcha-response']); //, $remoteIp en option           
-//     if ($resp->isSuccess()) {
-//         $recaptchaValid = true;
-//         var_dump($recaptchaValid);
-//         var_dump('Captcha valide');
-        
-
-//     } else {
-//         $errors = $resp->getErrorCodes();
-//         $recaptchaValid = false;
-//         var_dump($recaptchaValid);
-//         var_dump('Captcha non valide');
-//         $errorsArray['CaptchaNoValid'] = "Le captcha n'est pas valide";  
-//     }
-    
-//     } else{
-//         var_dump($recaptchaSend);
-//         $recaptchaSend = false;
-//         var_dump('Captcha non envoyé');
-//         $errorsArray['CaptchanoSend'] = "Le captcha n'est pas envoyé";  
-//     }
-    
-// } else{
-//     var_dump('Formulaire non rempli');
-// }
-
-
 // 4. si le formulaire et Valide et si l'email est dispo alors on enregistre le user
 if($formIsValid && $emailIsAvailable){   // && $recaptchaValid
 
