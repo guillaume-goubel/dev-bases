@@ -5,6 +5,8 @@ require_once __DIR__.'/config/database.php';
 /****************************************
  * VARIABLES
  *****************************************/
+
+ 
 // On récupère l'id et le token renvoyé via le mail de l'utilisateur
 $idToken = $_GET['id'];
 $tokenSerial = $_GET['token'];

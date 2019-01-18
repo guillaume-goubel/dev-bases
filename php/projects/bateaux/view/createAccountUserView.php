@@ -53,8 +53,12 @@
             <div class="custom-control custom-checkbox">
                 <input name="newsLetter" type="checkbox" class="custom-control-input" id="defaultRegisterFormNewsletter"
                     <?=isset($_POST['newsLetter']) ? 'checked' : null ?>>
-
                 <label class="custom-control-label" for="defaultRegisterFormNewsletter">Souscrire à notre Newsletter ?</label>
+            </div>
+
+            <div class="custom-control custom-checkbox">
+                <input name="rememberMe" type="checkbox" class="custom-control-input" id="defaultRegisterFormRemember">
+                <label class="custom-control-label" for="defaultRegisterFormRemember">Se souvenir de moi ?</label>
             </div>
 
             <br>

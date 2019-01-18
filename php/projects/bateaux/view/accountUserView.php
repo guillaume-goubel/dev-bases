@@ -42,6 +42,11 @@
                             Abonnement NewsLetter :
                             <?= $userInfo['news_letter'] == 1 ? "oui" : "non"  ?>
                         </li>
+
+                        <li>
+                            Vous acceptez les cookie ? :
+                            <?= $userInfo['accept_cookie'] == 1 ? "oui" : "non"  ?>
+                        </li>
                     </ul>
                 </div>
 

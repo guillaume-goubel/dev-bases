@@ -1,6 +1,7 @@
 <?php 
 require_once __DIR__.'/partials/header.php';
 
+
 /****************************************
  * DECLARATION DES VARIABLES
  *****************************************/
@@ -8,6 +9,8 @@ require_once __DIR__.'/partials/header.php';
 $name = $email = $password = $verifPassword = $confirmationToken = $captcha = null;
 // l'abonnement est par défaut 0 , soit faux (boolean). L'utilisateur doit cocher pour accepter (et le faire passer en valuer1)
 $confirmationToNewsLetter = 0;
+// le cookie est par défaut 0 , soit faux (boolean). L'utilisateur doit cocher pour accepter (et le faire passer en valuer1)
+$confirmationToCookie = 0;
 // le role par défaut des users (role admin est à créer dans la Bdd)
 $role = "user";
 // la date de création du compte. Il faudra la transformer en string pour la mettre en base
@@ -32,6 +35,8 @@ $mailToSend = false;
 $recaptchaSend = false; 
 //variable captcha valide
 $recaptchaValid = false;
+//A défaut les cookies sont désactivés.le user active ou non via la checkbox se souvenir de moi
+$cookieIsValid = false;
 
 
 /*******************************************************************
@@ -45,7 +50,6 @@ if(!empty($_POST)){
     $verifPassword =  $_POST['verifPassword'];
     $captcha = $_POST['captcha'];
 }
-
 
 // 2 .Si le formualire a été envoyé ,on peut le vérifier
 if(isset($name, $email, $password, $verifPassword, $captcha )){
@@ -124,8 +128,8 @@ if($formIsSend){
 if($formIsValid && $emailIsAvailable){   // && $recaptchaValid
 
     $insertSql = 'INSERT INTO `users`
-                  (`user_name`, `user_email`, `user_password`, `user_role`,  `news_letter`, `date_creation` , `confirmation_token` ) 
-                  VALUES (:user_name, :user_email, :user_password, :user_role, :news_letter, :date_creation , :confirmation_token )' ;
+                  (`user_name`, `user_email`, `user_password`, `user_role`,  `news_letter`, `date_creation` , `confirmation_token`, `accept_cookie`  ) 
+                  VALUES (:user_name, :user_email, :user_password, :user_role, :news_letter, :date_creation , :confirmation_token, :accept_cookie )' ;
             
     $query = $db->prepare($insertSql);
     
@@ -141,6 +145,9 @@ if($formIsValid && $emailIsAvailable){   // && $recaptchaValid
     if (isset($_POST['newsLetter'])){$confirmationToNewsLetter = 1;}  // si l'utilisateur a coché oui : alors il est signalé 1 dans la base de donnée (true car boolean)
     $query->bindValue(':news_letter', $confirmationToNewsLetter, PDO::PARAM_INT);
 
+    if (isset($_POST['rememberMe'])){$confirmationToCookie = 1; $cookieIsValid = true; }  // si l'utilisateur a coché oui : alors il est signalé 1 dans la base de donnée (true car boolean) ET cookieIsValid est true
+    $query->bindValue(':accept_cookie', $confirmationToCookie, PDO::PARAM_INT);
+
     $dateCreation = $dateCreation_dateFormat->format('Y-m-d H:i:s');// La date de cration du compte convertie en string
     $query->bindValue(':date_creation', $dateCreation, PDO::PARAM_STR); 
 
@@ -149,7 +156,7 @@ if($formIsValid && $emailIsAvailable){   // && $recaptchaValid
     $query->bindValue(':confirmation_token', $confirmationToken, PDO::PARAM_STR);
 
     $query->execute();
-    $query = null; // Fermeture de la connextion à la base de données
+    $query = null; // Fermeture de la requete (et non de la base de donnée)
     $mailToSend = true; // on peut alors envoyer le mail de confirmation  
 }
 
