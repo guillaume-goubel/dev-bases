@@ -5,11 +5,12 @@ require_once __DIR__.'/config/database.php';
 /****************************************
  * VARIABLES
  *****************************************/
-
- 
 // On récupère l'id et le token renvoyé via le mail de l'utilisateur
 $idToken = $_GET['id'];
 $tokenSerial = $_GET['token'];
+
+//A défaut les cookies sont désactivés.le user les a activés durant la création de compte avec la check-box
+$cookieIsAccepted = false;
 
 /****************************************
  * TRAITEMENTS
@@ -23,6 +24,8 @@ $query->bindValue(':id_user', $idToken, PDO::PARAM_INT);
 $query->execute();
 
 $result = $query->fetch();
+if($result['accept_cookie'] == 1){$cookieIsAccepted = true;} //Si en base accept_cookie = 1 alors c'est que l'utilisateur l'a accpeté lors de la création de compte
+
 
 // Si les parametres en get === ceux en base, c'est la même personne
 if($result['id_user'] === $idToken && $result['confirmation_token'] === $tokenSerial ){
@@ -35,6 +38,17 @@ if($result['id_user'] === $idToken && $result['confirmation_token'] === $tokenSe
     $query->bindValue(':id_user', $idToken, PDO::PARAM_INT);
     $query->execute(); //On efface en base le token + on met la date Now de validation
 
+    //les cookies
+    if($cookieIsAccepted){
+        
+        //cryptage des cookies avec en parametre son Id + hachage de son nom + pass (utile lors de la connexion auto cf. autologinUser.php)
+        $cryptageCookie = $result['id_user'].'---' .sha1($result['user_name'].$result['user_password']);
+
+
+        //définition du cookie
+        setcookie('userIdAuth', $cryptageCookie , time()+365*24*3600, null, null, false, true);
+    }
+
     session_start(); //On demarre la session
     $_SESSION['authenticatedUserId'] = $result['id_user'];
     $_SESSION['waitingForValidation'] = false;
@@ -43,8 +57,8 @@ if($result['id_user'] === $idToken && $result['confirmation_token'] === $tokenSe
     $db = null; // Fermeture de la connextion à la base de données
     exit();
 
-} else { // Si il y un souci , l'utilisateur est redirigé vers la page de login
-    $_SESSION['flash']['danger'] = "Ce token n'est plus valide";
-    header('Location: http://localhost/dev-bases/php/projects/bateaux/index.php');
-    exit();
-}
+        } else { // Si il y un souci , l'utilisateur est redirigé vers la page de login
+            $_SESSION['flash']['danger'] = "Ce token n'est plus valide";
+            header('Location: http://localhost/dev-bases/php/projects/bateaux/index.php');
+            exit();
+    }

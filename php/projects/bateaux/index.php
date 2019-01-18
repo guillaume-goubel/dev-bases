@@ -1,6 +1,5 @@
 <?php 
 require_once __DIR__.'/partials/header.php';
-require_once __DIR__.'/autoLoginUser.php';
 ?>
     <!-- Jumbotron -->
     <div class="jumbotron text-center">

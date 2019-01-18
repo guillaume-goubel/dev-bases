@@ -1,25 +1,38 @@
 <?php 
 require_once __DIR__.'/../config/database.php'; 
 require_once __DIR__.'/../config/functions.php';
+require_once __DIR__.'/../autoLoginUser.php';
 
-if(isset($_COOKIE['userId'])){
-
-var_dump($_COOKIE['email']);
-var_dump($_COOKIE['password']);
-var_dump($_COOKIE['userId']);
-
-}
-
+/*********************************
+ * SESSION
+ ********************************/
 // Si il n'y a pas de de session --> créer en une (car le session start est présent dans quelques script et il y aurait doublon)
 if(session_status() == PHP_SESSION_NONE ){
     session_start();
 }
 
+
 if(isset($_SESSION['authenticatedUserId'])){
     $userId = $_SESSION['authenticatedUserId']; // on récupère l'id de la session
     $userInfo = getUserAuthenticated($userId); // on récupère le return de la fonction avec l'id de la session via la variable $userInfo  
-    var_dump($userInfo);  
+    // var_dump($userInfo);  
+    // var_dump('SESSION : ' . $userId);
+}else{
+    echo 'pas de session <br>';
 }
+
+
+/********************************
+ * COOKIE
+ ********************************/
+if(isset($_COOKIE['userIdAuth'])){
+    // var_dump('COOKIE : '.$_COOKIE['userIdAuth']);
+}else{
+    echo 'pas de cookie <br>';
+}
+
+
+
 
 ?>
 

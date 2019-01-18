@@ -20,7 +20,7 @@ $passIsValid = false;
 //Vérification info et password
 $logIsValid = false;
 //A défaut les cookies sont désactivés.le user active ou non via la checkbox se souvenir de moi
-$CookieIsValid = false;
+$CookieIsActivated = false;
 
 
 /****************************************
@@ -32,7 +32,7 @@ if(!empty($_POST)){
 }
 // Par défaut les forms checkbox ont une seule valeur 'on' SSI elles sont activées
 if(isset($_POST['rememberMe'])){
-    $CookieIsValid = true;
+    $CookieIsActivated = true;
 }
 
 //Si le formualire a été envoyé ,on peut le vérifier
@@ -97,10 +97,9 @@ if($formIsValid){
     if($logIsValid){
 
         //les cookies
-        if($CookieIsValid){
-            setcookie('userId', $result['id_user'], time()+365*24*3600, null,null,false,true);
-            setcookie('email', $result['user_email'], time()+365*24*3600, null,null,false,true);
-            setcookie('password', $result['user_password'], time()+365*24*3600, null,null,false,true);
+        if($CookieIsActivated){
+            $cryptageCookie = $result['id_user'].'---' .sha1($result['user_name'].$result['user_password']);
+            setcookie('userIdAuth', $cryptageCookie , time()+365*24*3600, null, null, false, true);
         }
 
         //les sessions
@@ -114,5 +113,4 @@ if($formIsValid){
 
 
 require_once __DIR__.'/view/loginUserView.php';
-
 require_once __DIR__.'/partials/footer.php';
