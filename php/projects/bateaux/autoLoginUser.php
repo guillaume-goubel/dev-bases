@@ -9,7 +9,6 @@ if(isset($_COOKIE['userIdAuth'])){
 
     //1 on explose le userIdAuth crypté en sha1 en confirmUser.php pour récupérer le nom et le pass 
     $userIdAuth = $_COOKIE['userIdAuth'];
-    
     $userIdAuth = explode("---", $userIdAuth);
 
     // 1 on vérifie en base

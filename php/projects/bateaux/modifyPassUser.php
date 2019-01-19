@@ -1,10 +1,31 @@
 <?php 
 require_once __DIR__.'/partials/header.php';
 
+/********************
+ * DEBUG
+ ********************/
 
-if(isset($_SESSION['demandChangePass'])){
-    unset($_SESSION['demandChangePass']);
-}
+// unset($_SESSION['Step1']);
+// unset($_SESSION['Step2']);
+// unset($_SESSION['Step3']);
+
+// if(isset($_SESSION['Step1'])){
+//     echo 'Step1 : '.$_SESSION['Step1'] .'<br>';
+// }
+
+// if(isset($_SESSION['Step2'])){
+//     echo 'Step2 : '.$_SESSION['Step2'].'<br>';
+// }
+
+// if(isset($_SESSION['Step3'])){
+//     echo 'Step3 : '.$_SESSION['Step3'].'<br>';
+// }
+
+/**************
+ * NOTES
+ **************/
+//A Chaque étape du changement de pass , une variable session est créé en fonction de l'étape. Ce sont ces étapes qui déterminent l'affichage
+
 
 /*****************************
  * I DEMANDE DU CODE PAR MAIL
@@ -65,14 +86,12 @@ $message='
 ';
 
 $SendEmailOK = mail($UserEmail, $subject , $message, $header);
-$_SESSION['demandChangePass'] = true;
+$_SESSION['Step1'] = true;
 $_SESSION['flash']['warning'] = "Un code vous a été envoyé sur votre mail";
 $db = null;
 header('Location: http://localhost/dev-bases/php/projects/bateaux/modifyPassUser.php');
 exit();
 }
-
-
 
 /*************************
  * II VERIFICATION DU CODE
@@ -94,8 +113,8 @@ if($codeIsTest){
     $userInfo = getUserAuthenticated($_SESSION['authenticatedUserId']); 
 
     if($codeContent === $userInfo['confirmation_change_pass']){
-        $_SESSION['demandChangePass'] = false; // LA demande est effectuée . on remet à false (utile pour permettre l'affichage par étapes)
-        $_SESSION['codeValidChangePass'] = true;
+        $_SESSION['Step1'] = false; // LA demande est effectuée . on remet à false (utile pour permettre l'affichage par étapes)
+        $_SESSION['Step2'] = true;
         $_SESSION['flash']['success'] = "Le code est correct, vous pouvez changer votre password";
         $db = null;
         header('Location: http://localhost/dev-bases/php/projects/bateaux/modifyPassUser.php');
@@ -165,13 +184,17 @@ if($formIsValid){
         
         $_SESSION['flash']['success'] = "Votre mot de passe est modifié";
         header('Location: http://localhost/dev-bases/php/projects/bateaux/accountUser.php');
-
     }
 
     $db = null; 
     
     // dans le cas d'un utilsateur sans cookie
+    $_SESSION['Step2'] = false;
+    $_SESSION['Step3'] = true;
     $_SESSION['flash']['success'] = "Votre mot de passe est modifié";
+    unset($_SESSION['Step1']);
+    unset($_SESSION['Step2']);
+    unset($_SESSION['Step3']);
     header('Location: http://localhost/dev-bases/php/projects/bateaux/accountUser.php');
 }
 
