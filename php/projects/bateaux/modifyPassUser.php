@@ -153,14 +153,24 @@ if($formIsValid){
 
     if(isset($_COOKIE['userIdAuth'])){
         
+        // comme il y a modification du pass , la clé de l'autolog est changée
+        // j'efface le cookie correspondant à l'ancien mot de passe
         setcookie('userIdAuth', '', time() -3600, null,null,false,true);
         $userInfo = getUserAuthenticated($_SESSION['authenticatedUserId']); 
-        $cryptageCookie = $userInfo['id_user'].'---'.sha1($userInfo['user_name'].$userInfo['user_password'].$_SERVER['REMOTE_ADDR']);
-        setcookie('userIdAuth', $cryptageCookie , time()+365*24*3600, null, null, false, true);
-        header('Location: http://localhost/dev-bases/php/projects/bateaux/accountUser.php');
         
+        $cryptageCookie = $userInfo['id_user'].'---'.sha1($userInfo['user_name'].$userInfo['user_password'].$_SERVER['REMOTE_ADDR']);
+        
+        // puis je set le newcookie avec la nouvelle clé contenant le new password
+        setcookie('userIdAuth', $cryptageCookie , time()+365*24*3600, null, null, false, true);
+        
+        $_SESSION['flash']['success'] = "Votre mot de passe est modifié";
+        header('Location: http://localhost/dev-bases/php/projects/bateaux/accountUser.php');
+
     }
+
+    $db = null; 
     
+    // dans le cas d'un utilsateur sans cookie
     $_SESSION['flash']['success'] = "Votre mot de passe est modifié";
     header('Location: http://localhost/dev-bases/php/projects/bateaux/accountUser.php');
 }

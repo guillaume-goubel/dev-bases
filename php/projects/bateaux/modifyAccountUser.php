@@ -101,6 +101,22 @@ if($formIsValid){
         $query->bindValue(':user_email', $email, PDO::PARAM_STR);
         $query->bindValue(':news_letter', $newsLetter, PDO::PARAM_STR);
         $query ->execute();
+        
+        if(isset($_COOKIE['userIdAuth'])){
+        
+            // comme il y a modification du pass , la clé de l'autolog est changée
+            // j'efface le cookie correspondant à l'ancien mot de passe
+            setcookie('userIdAuth', '', time() -3600, null,null,false,true);
+            
+            $userInfo = getUserAuthenticated($_SESSION['authenticatedUserId']); 
+            $cryptageCookie = $userInfo['id_user'].'---'.sha1($userInfo['user_name'].$userInfo['user_password'].$_SERVER['REMOTE_ADDR']);
+            
+            // puis je set le newcookie avec la nouvelle clé contenant le new password
+            setcookie('userIdAuth', $cryptageCookie , time()+365*24*3600, null, null, false, true);
+            header('Location: http://localhost/dev-bases/php/projects/bateaux/accountUser.php');
+            
+        }
+
         $db = null;  
 
         $_SESSION['flash']['success'] = "Vos modifications ont été appliquées";

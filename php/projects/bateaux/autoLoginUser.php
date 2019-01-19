@@ -20,12 +20,10 @@ if(isset($_COOKIE['userIdAuth'])){
     $query -> execute();
     $result = $query->fetch();
     
-    //2.2 On vérifie le cryptage en comparant à une clé qui recode les informations nécessaires
+    //2.2 On vérifie le cryptage en comparant à une clé qui recode les informations nécessaires (clé exprimée en autologinUser.php)
     $key = sha1($result['user_name'].$result['user_password'].$_SERVER['REMOTE_ADDR']);
-    var_dump($key);
-    var_dump($userIdAuth[1]);
 
-    if($key == $userIdAuth[1]){
+    if($key == $userIdAuth[1]){// si la clé correspond au nom + pass + server de l'utilisateur courant , c'est la même personne 
         $logIsValid = true;
     }
 

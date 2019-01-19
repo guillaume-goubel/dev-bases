@@ -12,20 +12,21 @@ if(session_status() == PHP_SESSION_NONE ){
 /********************************
  * COOKIE
  ********************************/
-if(isset($_COOKIE['userIdAuth'])){
-    var_dump('COOKIE : '.$_COOKIE['userIdAuth']);
-}else{
-    echo 'pas de cookie <br>';
-}
+// if(isset($_COOKIE['userIdAuth'])){
+//     var_dump('COOKIE : '.$_COOKIE['userIdAuth']);
+// }else{
+//     echo 'pas de cookie <br>';
+// }
 
 if(isset($_SESSION['authenticatedUserId'])){
     $userId = $_SESSION['authenticatedUserId']; 
-    $userInfo = getUserAuthenticated($userId); 
+    $userInfo = getUserAuthenticated($userId);
+} 
     // var_dump($userInfo);  
-    var_dump('SESSION : ' . $userId);
-}else{
-    echo 'pas de session <br>';
-}
+//     var_dump('SESSION : ' . $userId);
+// }else{
+//     echo 'pas de session <br>';
+// }
 ?>
 <!doctype html>
 <html lang="fr">
