@@ -1,24 +1,11 @@
 <?php 
+
 require_once __DIR__.'/../config/database.php'; 
 require_once __DIR__.'/../config/functions.php';
 require_once __DIR__.'/../autoLoginUser.php';
 
-/*********************************
- * SESSION
- ********************************/
-// Si il n'y a pas de de session --> créer en une (car le session start est présent dans quelques script et il y aurait doublon)
 if(session_status() == PHP_SESSION_NONE ){
     session_start();
-}
-
-
-if(isset($_SESSION['authenticatedUserId'])){
-    $userId = $_SESSION['authenticatedUserId']; // on récupère l'id de la session
-    $userInfo = getUserAuthenticated($userId); // on récupère le return de la fonction avec l'id de la session via la variable $userInfo  
-    // var_dump($userInfo);  
-    // var_dump('SESSION : ' . $userId);
-}else{
-    echo 'pas de session <br>';
 }
 
 
@@ -26,16 +13,20 @@ if(isset($_SESSION['authenticatedUserId'])){
  * COOKIE
  ********************************/
 if(isset($_COOKIE['userIdAuth'])){
-    // var_dump('COOKIE : '.$_COOKIE['userIdAuth']);
+    var_dump('COOKIE : '.$_COOKIE['userIdAuth']);
 }else{
     echo 'pas de cookie <br>';
 }
 
-
-
-
+if(isset($_SESSION['authenticatedUserId'])){
+    $userId = $_SESSION['authenticatedUserId']; 
+    $userInfo = getUserAuthenticated($userId); 
+    // var_dump($userInfo);  
+    var_dump('SESSION : ' . $userId);
+}else{
+    echo 'pas de session <br>';
+}
 ?>
-
 <!doctype html>
 <html lang="fr">
 
@@ -53,8 +44,6 @@ if(isset($_COOKIE['userIdAuth'])){
     <link rel="stylesheet" href="assets/styles/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/styles/css/mdb.css">
     <link rel="stylesheet" href="assets/styles/css/styles.css"> 
-
-
 </head>
 
 <body>
@@ -81,11 +70,11 @@ if(isset($_COOKIE['userIdAuth'])){
                 </a>
 
                 <!-- Si le user est connecté , alors on affiche son nom et la date de connexion -->
-                <?php if(isset($userInfo['user_name'])): ?>
+                <?php if(isset($userInfo['user_name'])):?>
                     <span href="index.php" class="navbar-brand d-flex align-items-center"> 
-                        Bienvenue : <?= $userInfo['user_name'] ?>
+                        Bienvenue : <?= $userInfo['user_name']?>
                     </span>
-                <?php endif; ?>
+                <?php endif;?>
  
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
                     aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
@@ -109,5 +98,4 @@ if(isset($_COOKIE['userIdAuth'])){
         <?php } }
         unset($_SESSION['flash']); // Le message est ensuite détruit - lors du rafraichissement il disparait
         ?>
-
-    </div>
+</div>

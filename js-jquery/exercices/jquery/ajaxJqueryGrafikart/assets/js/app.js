@@ -60,7 +60,6 @@ $(document).ready(function(){
             $a.css( "color" , "yellow" );
             $a.text('Delete en cours');
             $a.parents('tr').fadeOut(); // fait disparaitre les elements html passés via add.php
-            
 
         })
         

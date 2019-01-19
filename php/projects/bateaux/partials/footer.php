@@ -11,3 +11,22 @@
 </body>
 
 </html>
+
+<?php
+/********************************
+ * SESSION
+ ********************************/
+// if(isset($_SESSION['authenticatedUserId'])){
+//     $userId = $_SESSION['authenticatedUserId']; 
+//     $userInfo = getUserAuthenticated($userId); 
+//     var_dump($userInfo);  
+//     var_dump('SESSION : ' . $userId);
+// }else{
+//     echo 'pas de session <br>';
+// }
+
+// if(isset($_SESSION['demandChangePass'])){
+//     var_dump($_SESSION['demandChangePass']);
+// }
+
+

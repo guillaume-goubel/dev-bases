@@ -56,7 +56,7 @@
         <!--Footer-->
         <div class="modal-footer justify-content-center">
             <a href="modifyAccountUser.php" type="button" class="btn btn-warning"> Modifier mes informations </a>
-            <a type="button" class="btn btn-outline-warning waves-effect" data-dismiss="modal"> Modifier mon mot de passe</a>
+            <a href="modifyPassUser.php" type="button" class="btn btn-outline-warning waves-effect"> Modifier mon mot de passe</a>
         </div>
 
     </div>

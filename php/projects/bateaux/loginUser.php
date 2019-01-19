@@ -98,7 +98,7 @@ if($formIsValid){
 
         //les cookies
         if($CookieIsActivated){
-            $cryptageCookie = $result['id_user'].'---' .sha1($result['user_name'].$result['user_password']);
+            $cryptageCookie = $result['id_user'].'---'.sha1($result['user_name'].$result['user_password'].$_SERVER['REMOTE_ADDR']);
             setcookie('userIdAuth', $cryptageCookie , time()+365*24*3600, null, null, false, true);
         }
 

@@ -2,14 +2,10 @@
 
 
 //For Token
-function str_random($length){
-
+function str_token($length){
     $string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';    
     return substr (str_shuffle(str_repeat($string,$length)) , 0 ,$length ); //1 on repete la chaine , 2 on la mélange , on sélectionne 3 avec sustr offset + nombre de caratères 
-
 }
-
-
 
 //For GetUserInfo ( An authenticatedc User)
 function getUserAuthenticated($userId){
@@ -35,7 +31,6 @@ function getUserAuthenticated($userId){
         die('Aie Aie Aie');
     }
 
-
     $queryUserSql = 'SELECT * FROM `users`
                  WHERE id_user = :id_user';
 
@@ -54,10 +49,3 @@ function frenchDate(){
     $usDate  = new \Datetime();
     return $frenchDate = date("d/m/Y H:i:s");
 }
-
-
-
-
-
-
-

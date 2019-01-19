@@ -67,7 +67,7 @@ if($formIsSend){
         $errorsArray['nameLack'] = "Il manque le nom";  
     }
 
-    if( !preg_match(" /^[a-z0-9]+$/ ", $name ) && !isset($errorsArray['nameLack'])){
+    if( !preg_match(" /^[a-zA-Z0-9]+$/ ", $name ) && !isset($errorsArray['nameLack'])){
         $formIsValid = false;
         $errorsArray['nameFalse'] = "Le nom n'est pas correct";  
     }
@@ -142,17 +142,24 @@ if($formIsValid && $emailIsAvailable){   // && $recaptchaValid
     $query->bindValue(':user_password', $password, PDO::PARAM_STR);
     $query->bindValue(':user_role', $role, PDO::PARAM_STR); // Role est 'user' par défaut
 
-    if (isset($_POST['newsLetter'])){$confirmationToNewsLetter = 1;}  // si l'utilisateur a coché oui : alors il est signalé 1 dans la base de donnée (true car boolean)
+    if (isset($_POST['newsLetter'])){
+        $confirmationToNewsLetter = 1;// si l'utilisateur a coché oui : alors il est signalé 1 dans la base de donnée (true car boolean)
+    }  
+    
     $query->bindValue(':news_letter', $confirmationToNewsLetter, PDO::PARAM_INT);
 
-    if (isset($_POST['rememberMe'])){$confirmationToCookie = 1; $cookieIsValid = true; }  // si l'utilisateur a coché oui : alors il est signalé 1 dans la base de donnée (true car boolean) ET cookieIsValid est true
+    if (isset($_POST['rememberMe'])){
+        $confirmationToCookie = 1;// si l'utilisateur a coché oui : alors il est signalé 1 dans la base de donnée (true car boolean) ET cookieIsValid est true
+        $cookieIsValid = true; 
+    }
+    
     $query->bindValue(':accept_cookie', $confirmationToCookie, PDO::PARAM_INT);
 
     $dateCreation = $dateCreation_dateFormat->format('Y-m-d H:i:s');// La date de cration du compte convertie en string
     $query->bindValue(':date_creation', $dateCreation, PDO::PARAM_STR); 
 
     // Un token est envoyé en base de données
-    $confirmationToken = str_random(60);
+    $confirmationToken = str_token(60);
     $query->bindValue(':confirmation_token', $confirmationToken, PDO::PARAM_STR);
 
     $query->execute();

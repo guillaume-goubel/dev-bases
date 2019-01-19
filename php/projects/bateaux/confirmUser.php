@@ -9,7 +9,7 @@ require_once __DIR__.'/config/database.php';
 $idToken = $_GET['id'];
 $tokenSerial = $_GET['token'];
 
-//A défaut les cookies sont désactivés.le user les a activés durant la création de compte avec la check-box
+//A défaut les cookies sont désactivés.le user les active durant la création de compte avec la check-box
 $cookieIsAccepted = false;
 
 /****************************************
@@ -26,11 +26,10 @@ $query->execute();
 $result = $query->fetch();
 if($result['accept_cookie'] == 1){$cookieIsAccepted = true;} //Si en base accept_cookie = 1 alors c'est que l'utilisateur l'a accpeté lors de la création de compte
 
-
 // Si les parametres en get === ceux en base, c'est la même personne
 if($result['id_user'] === $idToken && $result['confirmation_token'] === $tokenSerial ){
     
-    // ici on effece le token et on rajoute la date d'authnetification : le user est authentifié
+    // ici on efface le token et on rajoute la date d'authnetification : le user est authentifié
     $UpdateDbSql = 'UPDATE `users` SET `confirmation_token` = NULL , `confirmed_at` = NOW() 
                     WHERE id_user = :id_user';
     
@@ -41,17 +40,15 @@ if($result['id_user'] === $idToken && $result['confirmation_token'] === $tokenSe
     //les cookies
     if($cookieIsAccepted){
         
-        //cryptage des cookies avec en parametre son Id + hachage de son nom + pass (utile lors de la connexion auto cf. autologinUser.php)
-        $cryptageCookie = $result['id_user'].'---' .sha1($result['user_name'].$result['user_password']);
-
-
+        //cryptage des cookies avec en parametre son Id + hachage de son nom + pass + adressseIP (utile lors de la connexion auto cf. autologinUser.php)
+        $cryptageCookie = $result['id_user'].'---'.sha1($result['user_name'].$result['user_password'].$_SERVER['REMOTE_ADDR']);
+        
         //définition du cookie
         setcookie('userIdAuth', $cryptageCookie , time()+365*24*3600, null, null, false, true);
     }
 
     session_start(); //On demarre la session
     $_SESSION['authenticatedUserId'] = $result['id_user'];
-    $_SESSION['waitingForValidation'] = false;
     $_SESSION['flash']['success'] = "Votre inscription est désormais entièrement validée";
     header('Location: http://localhost/dev-bases/php/projects/bateaux/accountUser.php'); // on redirige l'utilisateur avec en session son Id   
     $db = null; // Fermeture de la connextion à la base de données
