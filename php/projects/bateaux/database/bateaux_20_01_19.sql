@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 10 jan. 2019 à 16:53
+-- Généré le :  Dim 20 jan. 2019 à 15:10
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.2.10
 
@@ -40,8 +40,11 @@ CREATE TABLE IF NOT EXISTS `users` (
   `confirmation_token` varchar(255) DEFAULT NULL,
   `confirmed_at` datetime DEFAULT NULL,
   `last_modification_date` datetime DEFAULT NULL,
+  `accept_cookie` tinyint(4) DEFAULT NULL,
+  `confirmation_change_pass` varchar(255) DEFAULT NULL,
+  `last_change_pass_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id_user`)
-) ENGINE=MyISAM AUTO_INCREMENT=124 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
