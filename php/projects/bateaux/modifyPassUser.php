@@ -9,17 +9,17 @@ require_once __DIR__.'/partials/header.php';
 // unset($_SESSION['Step2']);
 // unset($_SESSION['Step3']);
 
-// if(isset($_SESSION['Step1'])){
-//     echo 'Step1 : '.$_SESSION['Step1'] .'<br>';
-// }
+if(isset($_SESSION['Step1'])){
+    echo 'Step1 : '.$_SESSION['Step1'] .'<br>';
+}
 
-// if(isset($_SESSION['Step2'])){
-//     echo 'Step2 : '.$_SESSION['Step2'].'<br>';
-// }
+if(isset($_SESSION['Step2'])){
+    echo 'Step2 : '.$_SESSION['Step2'].'<br>';
+}
 
-// if(isset($_SESSION['Step3'])){
-//     echo 'Step3 : '.$_SESSION['Step3'].'<br>';
-// }
+if(isset($_SESSION['Step3'])){
+    echo 'Step3 : '.$_SESSION['Step3'].'<br>';
+}
 
 /**************
  * NOTES

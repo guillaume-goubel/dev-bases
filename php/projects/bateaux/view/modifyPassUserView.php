@@ -4,14 +4,14 @@
 
     <div class="container" id="stepsContainer">
         <ul class="steps">
-            <li class="step etape1 active">
-                <span class="stepNumber">1</span>Envoi de la demande par mail
+            <li class="step etape1">
+                <span class="stepNumber<?= isset($_SESSION['Step1']) ? "-disabled" : "-enabled" ?>">1</span>Envoi de la demande par mail
             </li>
             <li class="step etape2">
-                <span class="stepNumber">2</span>Inscription du code secret
+                <span class="stepNumber<?= isset($_SESSION['Step1']) && !isset($_SESSION['Step2'])  ? "-enabled" : "-disabled" ?>">2</span>Inscription du code secret
             </li>
             <li class="step etape3">
-                <span class="stepNumber">3</span>Changement du mot de passe
+                <span class="stepNumber<?= isset($_SESSION['Step2']) ? "-enabled" : "-disabled" ?>">3</span>Changement du mot de passe
             </li>
         </ul>
     </div>
@@ -30,6 +30,7 @@
 
 <?php if(!isset($_SESSION['Step1']) && !isset($_SESSION['Step2']) && !isset($_SESSION['Step3']) ): ?>
 <div class="container">
+
     <div class="row" id="registerForm">
         <form id="formCheckSendMail" class="text-center border border-light p-5" method="POST" action="#" style="width: 50rem;">
             <div class="custom-control custom-checkbox">
@@ -91,6 +92,3 @@
 <?php endif; ?>
 
 <?php 
-unset($_SESSION['Step1']);
-unset($_SESSION['Step2']);
-unset($_SESSION['Step3']);
