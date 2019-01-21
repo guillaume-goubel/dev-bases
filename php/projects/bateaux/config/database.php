@@ -22,5 +22,3 @@ try{
     echo '<img src="assets/images/giphy.gif">';
     die('Aie Aie Aie');
 }
-
-

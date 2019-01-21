@@ -9,17 +9,17 @@ require_once __DIR__.'/partials/header.php';
 // unset($_SESSION['Step2']);
 // unset($_SESSION['Step3']);
 
-if(isset($_SESSION['Step1'])){
-    echo 'Step1 : '.$_SESSION['Step1'] .'<br>';
-}
+// if(isset($_SESSION['Step1'])){
+//     echo 'Step1 : '.$_SESSION['Step1'] .'<br>';
+// }
 
-if(isset($_SESSION['Step2'])){
-    echo 'Step2 : '.$_SESSION['Step2'].'<br>';
-}
+// if(isset($_SESSION['Step2'])){
+//     echo 'Step2 : '.$_SESSION['Step2'].'<br>';
+// }
 
-if(isset($_SESSION['Step3'])){
-    echo 'Step3 : '.$_SESSION['Step3'].'<br>';
-}
+// if(isset($_SESSION['Step3'])){
+//     echo 'Step3 : '.$_SESSION['Step3'].'<br>';
+// }
 
 /**************
  * NOTES
@@ -39,7 +39,7 @@ if(isset($_POST['demandChangePass'])){
 
 if($demandIsSend){
 
-$userInfo = getUserAuthenticated($_SESSION['authenticatedUserId']); 
+$userInfo = getUserAuthenticatedById($_SESSION['authenticatedUserId']); 
 
 $UserName = $userInfo ['user_name'];
 $UserEmail = $userInfo ['user_email'];
@@ -110,10 +110,10 @@ if(!empty($_POST['CodeIsTest'])){
 
 if($codeIsTest){
 
-    $userInfo = getUserAuthenticated($_SESSION['authenticatedUserId']); 
+    $userInfo = getUserAuthenticatedById($_SESSION['authenticatedUserId']); 
 
     if($codeContent === $userInfo['confirmation_change_pass']){
-        $_SESSION['Step1'] = false; // LA demande est effectuée . on remet à false (utile pour permettre l'affichage par étapes)
+        $_SESSION['Step1'] = false; // La demande est effectuée . on remet à false (utile pour permettre l'affichage par étapes)
         $_SESSION['Step2'] = true;
         $_SESSION['flash']['success'] = "Le code est correct, vous pouvez changer votre password";
         $db = null;
@@ -175,7 +175,7 @@ if($formIsValid){
         // comme il y a modification du pass , la clé de l'autolog est changée
         // j'efface le cookie correspondant à l'ancien mot de passe
         setcookie('userIdAuth', '', time() -3600, null,null,false,true);
-        $userInfo = getUserAuthenticated($_SESSION['authenticatedUserId']); 
+        $userInfo = getUserAuthenticatedById($_SESSION['authenticatedUserId']); 
         
         $cryptageCookie = $userInfo['id_user'].'---'.sha1($userInfo['user_name'].$userInfo['user_password'].$_SERVER['REMOTE_ADDR']);
         

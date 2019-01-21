@@ -98,6 +98,13 @@ if($formIsValid){
 
         //les cookies
         if($CookieIsActivated){
+
+            if(isset($_COOKIE['userIdAuth'])){        
+                // comme il y a modification du pass , la clé de l'autolog est changée
+                // j'efface les éventuels cookies correspondant à l'ancien mot de passe
+                setcookie('userIdAuth', '', time() -3600, null,null,false,true);
+            }
+
             $cryptageCookie = $result['id_user'].'---'.sha1($result['user_name'].$result['user_password'].$_SERVER['REMOTE_ADDR']);
             setcookie('userIdAuth', $cryptageCookie , time()+365*24*3600, null, null, false, true);
         }

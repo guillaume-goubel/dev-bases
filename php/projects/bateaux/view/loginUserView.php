@@ -28,7 +28,7 @@
             <!-- E-mail -->
             <input name="email" type="email" id="defaultRegisterFormEmail" class="form-control" placeholder="Votre mail"
                 value="<?= $formIsSend ? $email : null ?>">
-            <small id="formInfo" class="form-text text-muted"> Votre Email servira pour vous loger </small>
+            <small id="formInfo" class="form-text text-muted"> Votre Email servira pour vous logger </small>
 
             <!-- Password -->
             <input name="password" type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Mot de passe"
@@ -43,11 +43,8 @@
             <!-- Sign up button -->
             <button class="btn btn-info my-4 btn-block" type="submit">Se connecter</button>
 
-            <p>Pas encore de compte ? Créer votre compte ici
-                <a href="createAccountUser.php" target="_blank">Créer mon espace utilisateur</a></p>
-
+            <p>Pas encore de compte ? Créer votre compte ici <a href="createAccountUser.php">Créer mon espace utilisateur</a></p>
+            <p><a href="lostPasswordUser_mail.php">Mot de passe perdu ?</a></p>
         </form>
     </div>
-
-
 </div>

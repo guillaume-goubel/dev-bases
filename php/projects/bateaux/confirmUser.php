@@ -39,6 +39,12 @@ if($result['id_user'] === $idToken && $result['confirmation_token'] === $tokenSe
 
     //les cookies
     if($cookieIsAccepted){
+
+        if(isset($_COOKIE['userIdAuth'])){        
+            // comme il y a modification du pass , la clé de l'autolog est changée
+            // j'efface les éventuels cookies correspondant à l'ancien mot de passe
+            setcookie('userIdAuth', '', time() -3600, null,null,false,true);
+        }
         
         //cryptage des cookies avec en parametre son Id + hachage de son nom + pass + adressseIP (utile lors de la connexion auto cf. autologinUser.php)
         $cryptageCookie = $result['id_user'].'---'.sha1($result['user_name'].$result['user_password'].$_SERVER['REMOTE_ADDR']);

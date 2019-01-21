@@ -20,7 +20,7 @@ if(session_status() == PHP_SESSION_NONE ){
 
 if(isset($_SESSION['authenticatedUserId'])){
     $userId = $_SESSION['authenticatedUserId']; 
-    $userInfo = getUserAuthenticated($userId);
+    $userInfo = getUserAuthenticatedById($userId);
 } 
     // var_dump($userInfo);  
 //     var_dump('SESSION : ' . $userId);

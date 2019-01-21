@@ -8,7 +8,7 @@ function str_token($length){
 }
 
 //For GetUserInfo ( An authenticatedc User)
-function getUserAuthenticated($userId){
+function getUserAuthenticatedById($userId){
 
     // require_once __DIR__.'/database.php'; pourquoi cela ne marche pas ?
     
@@ -41,6 +41,44 @@ function getUserAuthenticated($userId){
     return $result = $query->fetch();
     $db = NULL;
 }
+
+
+
+//For GetUserInfo ( An authenticatedc User)
+function getUserAuthenticatedByEmail($userEmail){
+
+    require_once __DIR__.'/database.php'; 
+    
+    try{
+        $db = new PDO ('mysql:host=localhost;dbname=bateaux;charset=UTF8', 'root' , '');
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE , PDO::FETCH_ASSOC); 
+        $db->setAttribute(PDO::ATTR_ERRMODE , PDO::ERRMODE_WARNING); 
+    } 
+     
+     catch(Exception $e){
+        echo $e ->getMessage();
+        //redirection vers GOOGLE
+        header('https://www.google.com/search?q='.$e->getMessage());
+    } 
+    
+     catch(PDOException $e){
+        echo "Database connection failed: " . $e->getMessage();
+        echo '<img src="assets/images/giphy.gif">';
+        die('Aie Aie Aie');
+    }
+
+    $queryUserSql = 'SELECT * FROM `users`
+                 WHERE user_email = :user_email';
+
+    $query = $db->prepare($queryUserSql);
+    $query->bindValue(':user_email', $userEmail, PDO::PARAM_STR);
+    $query->execute();
+
+    return $result = $query->fetch();
+    $db = NULL;
+}
+
 
 
 function frenchDate(){

@@ -2,7 +2,7 @@
 require_once __DIR__.'/partials/header.php';
 
 $userId = $_SESSION['authenticatedUserId']; // on récupère l'id de la session
-$userInfo = getUserAuthenticated($userId); // on récupère le return de la fonction avec l'id de la session via la variable $userInfo
+$userInfo = getUserAuthenticatedById($userId); // on récupère le return de la fonction avec l'id de la session via la variable $userInfo
 
 //Voir les étapes dans createUserAccount
 
@@ -102,13 +102,12 @@ if($formIsValid){
         $query->bindValue(':news_letter', $newsLetter, PDO::PARAM_STR);
         $query ->execute();
         
-        if(isset($_COOKIE['userIdAuth'])){
-        
+        if(isset($_COOKIE['userIdAuth'])){        
             // comme il y a modification du pass , la clé de l'autolog est changée
             // j'efface le cookie correspondant à l'ancien mot de passe
             setcookie('userIdAuth', '', time() -3600, null,null,false,true);
             
-            $userInfo = getUserAuthenticated($_SESSION['authenticatedUserId']); 
+            $userInfo = getUserAuthenticatedById($_SESSION['authenticatedUserId']); 
             $cryptageCookie = $userInfo['id_user'].'---'.sha1($userInfo['user_name'].$userInfo['user_password'].$_SERVER['REMOTE_ADDR']);
             
             // puis je set le newcookie avec la nouvelle clé contenant le new password

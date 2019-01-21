@@ -4,6 +4,7 @@
 
     <div class="container" id="stepsContainer">
         <ul class="steps">
+            <!-- en fonction des états de variables de sessions , les étapes sont rouges ou grises-->
             <li class="step etape1">
                 <span class="stepNumber<?= isset($_SESSION['Step1']) ? "-disabled" : "-enabled" ?>">1</span>Envoi de la demande par mail
             </li>
@@ -14,17 +15,6 @@
                 <span class="stepNumber<?= isset($_SESSION['Step2']) ? "-enabled" : "-disabled" ?>">3</span>Changement du mot de passe
             </li>
         </ul>
-    </div>
-
-
-    <div class="row d-flex justify-content-center">
-        <div class="col-xl-7 pb-2">
-
-            <?php if(isset($_SESSION['Step1'])): ?>
-            <a href="ReSendMail.php">Vous n'avez pas reçu votre mail ?</a>
-            <?php endif; ?>
-
-        </div>
     </div>
 </div>
 
@@ -46,7 +36,6 @@
     </div>
 </div>
 <?php endif; ?>
-
 
 <?php if(isset($_SESSION['Step1']) && !isset($_SESSION['Step2']) && !isset($_SESSION['Step3']) ): ?>
 <div class="container">
@@ -91,4 +80,12 @@
 </div>
 <?php endif; ?>
 
-<?php 
+<!-- Message d'aide -->
+<br>
+<div class="container">
+    <div class="row" id="registerForm">
+        <?php if(isset($_SESSION['Step1'])): ?>
+        <a href="ReSendMail.php">Vous n'avez pas reçu votre mail ou vous souhaitez reprendre à l'étape 1 ?</a>
+        <?php endif; ?>
+    </div>
+</div>

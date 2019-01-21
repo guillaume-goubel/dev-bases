@@ -37,7 +37,7 @@
             <!-- E-mail -->
             <input name="email" type="email" id="defaultRegisterFormEmail" class="form-control" placeholder="Votre mail"
                 value="<?= $formIsSend ? $email : null ?>" >
-            <small id="formInfo" class="form-text text-muted"> Votre Email servira pour vous loger </small>
+            <small id="formInfo" class="form-text text-muted"> Votre Email servira pour vous logger </small>
 
             <!-- Password -->
             <input name="password" type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Mot de passe"
